@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Banking | FrosstBank</title>
+    <link rel="stylesheet" href="personalbankingstyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="bank-header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="frosstlogo.png" alt="FroostBank" class="bank-logo">
+                <h1>Froost<span>Bank</span></h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="personal banking.html" class="active">Personal Banking</a></li>
+                    <li><a href="businesspage.html">Business Banking</a></li>
+                  
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn-login">log In</a>
+                <a href="sign up.html" class="btn-login">SIgn up</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Personal Banking Solutions</h1>
+                    <p>Checking, savings, loans, and more for your everyday needs</p>
+                    <a href="#products" class="btn-primary">Explore Products</a>
+                </div>
+                <div class="hero-image">
+                    <img src="happy customer.jpeg" alt="Happy banking customers">
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <div class="container">
+                <div class="action-card">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>Transfer Money</h3>
+                    <p>Move money between accounts or send to others</p>
+                </div>
+                <div class="action-card">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <h3>Pay Bills</h3>
+                    <p>Pay your bills quickly and securely</p>
+                </div>
+                <div class="action-card">
+                    <i class="fas fa-search-dollar"></i>
+                    <h3>Find ATMs</h3>
+                    <p>Locate our ATMs and branches near you</p>
+                </div>
+                <div class="action-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>Customer Service</h3>
+                    <p>24/7 support for all your banking needs</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products" id="products">
+            <div class="container">
+                <h2>Banking Products</h2>
+                <div class="product-grid">
+                    <!-- Checking Accounts -->
+                    <div class="product-card">
+                        <div class="product-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <h3>Checking Accounts</h3>
+                        <p>Manage your daily finances with ease</p>
+                        <ul>
+                            <li>No monthly fees with direct deposit</li>
+                            <li>Free online and mobile banking</li>
+                            <li>Debit card with fraud protection</li>
+                            <li>Overdraft protection options</li>
+                        </ul>
+                        
+                    </div>
+
+                    <!-- Savings Accounts -->
+                    <div class="product-card">
+                        <div class="product-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <h3>Savings Accounts</h3>
+                        <p>Grow your money with competitive rates</p>
+                        <ul>
+                            <li>High-yield savings options</li>
+                            <li>No minimum balance requirements</li>
+                            <li>Automatic savings plans</li>
+                            <li>FDIC insured up to $250,000</li>
+                        </ul>
+                        
+                    </div>
+
+                    <!-- Credit Cards -->
+                    <div class="product-card">
+                        <div class="product-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3>Credit Cards</h3>
+                        <p>Rewards and benefits tailored for you</p>
+                        <ul>
+                            <li>Cash back on everyday purchases</li>
+                            <li>Low introductory APR offers</li>
+                            <li>No annual fee options</li>
+                            <li>Advanced security features</li>
+                        </ul>
+                       
+                    </div>
+
+                    <!-- Personal Loans -->
+                    <div class="product-card">
+                        <div class="product-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <h3>Personal Loans</h3>
+                        <p>Borrow with confidence</p>
+                        <ul>
+                            <li>Competitive fixed rates</li>
+                            <li>Fast approval process</li>
+                            <li>Flexible repayment terms</li>
+                            <li>No prepayment penalties</li>
+                        </ul>
+                        
+                    </div>
+
+                    <!-- Mortgages -->
+                    <div class="product-card">
+                        <div class="product-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>Mortgages</h3>
+                        <p>Your dream home within reach</p>
+                        <ul>
+                            <li>Fixed and adjustable rate options</li>
+                            <li>Low down payment programs</li>
+                            <li>Digital mortgage application</li>
+                            <li>Local loan officers</li>
+                        </ul>
+                        
+                    </div>
+
+                    <!-- Retirement -->
+                    <div class="product-card">
+                        <div class="product-icon">
+                            <i class="fas fa-umbrella-beach"></i>
+                        </div>
+                        <h3>Retirement Accounts</h3>
+                        <p>Plan for your future today</p>
+                        <ul>
+                            <li>Traditional and Roth IRAs</li>
+                            <li>401(k) rollover assistance</li>
+                            <li>Tax-advantaged growth</li>
+                            <li>Investment options</li>
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Digital Banking Section -->
+        <section class="digital-banking">
+            <div class="container">
+                <div class="digital-content">
+                    <h2>Digital Banking</h2>
+                    <p>Bank anytime, anywhere with our award-winning digital platform</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h4>Mobile Banking App</h4>
+                            <p>Deposit checks, pay bills, and transfer money on the go</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bell"></i>
+                            <h4>Alerts & Notifications</h4>
+                            <p>Stay informed about your account activity</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-fingerprint"></i>
+                            <h4>Biometric Login</h4>
+                            <p>Secure access with fingerprint or face recognition</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-comment-dots"></i>
+                            <h4>Chat Support</h4>
+                            <p>Get help instantly through in-app messaging</p>
+                        </div>
+                    </div>
+                  
+               
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <div class="container">
+                <h2>What Our Customers Say</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"FroostBank made switching banks so easy. Their mobile app is the best I've used!"</p>
+                        <div class="customer">
+                            
+                            <div>
+                                <h4>Sarah J.</h4>
+                                <span>Customer since 2018</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"I got a mortgage with a great rate and the process was completely transparent."</p>
+                        <div class="customer">
+                       
+                            <div>
+                                <h4>Michael T.</h4>
+                                <span>Customer since 2020</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p>"The customer service is outstanding. They resolved my issue in minutes!"</p>
+                        <div class="customer">
+                       
+                            <div>
+                                <h4>Lisa M.</h4>
+                                <span>Customer since 2015</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta">
+            <div class="container">
+                <h2>Ready to get started?</h2>
+                <p>Open an account in minutes and enjoy all the benefits of banking with FroostBank.</p>
+                <div class="cta-buttons">
+                    <a href="sign up.html" class="btn-primary">Open an Account</a>
+                    <a href="contact.html" class="btn-secondary">Contact Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bank-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>About FroostBank</h3>
+                    <p>Providing trusted banking services since 1985. Member FDIC. Equal Housing Lender.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                       
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="personal banking.html">Personal Banking</a></li>
+                        <li><a href="businesspage.html">Business Banking</a></li>
+                       
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-services">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a >Checking Accounts</a></li>
+                        <li><a>Savings Accounts</a></li>
+                        <li><a >Credit Cards</a></li>
+                        <li><a >Mortgages</a></li>
+                        <li><a >Personal Loans</a></li>
+                        <li><a >Investment Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <address>
+                        123 Financial Plaza<br>
+                       
+                        <br>
+                        <a href="tel:18004852582">1-800-FRB-1234</a><br>
+                        <a href="mailto:info@globaltrustbank.com">info@globaltrustbank.com</a>
+                    </address>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="legal-links">
+                   
+                    <a href="termsofuse.html">Terms of Use</a>
+                    
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 FroostBank. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Floating Chat Button -->
+  <div class="floating-chat-container" id="floatingChatContainer">
+    <button class="floating-chat-btn" id="floatingChatBtn" title="Start Chat">
+      <i class="fas fa-comments"></i>
+      <span class="chat-label">Chat with us</span>
+    </button>
+  </div>
+
+  <!-- Floating Chat Widget -->
+  <div class="floating-chat-widget" id="floatingChatWidget" style="display: none;">
+    <div class="chat-widget-header">
+      <div class="chat-widget-title">
+        <i class="fas fa-headset"></i>
+        <span>Live Support</span>
+      </div>
+      <button class="chat-widget-close" id="chatWidgetClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="chat-widget-body">
+      <div class="chat-widget-messages" id="chatWidgetMessages">
+        <div class="chat-widget-message bot">
+          <div class="message-avatar">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="message-content">
+            <div class="message-text">Hi there! 👋 How can we help you today?</div>
+            <div class="message-time">Just now</div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-widget-input-container">
+        <input type="text" id="chatWidgetInput" placeholder="Type a message..." />
+        <button id="chatWidgetSend">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Socket.io for chat -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="personalbanking.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

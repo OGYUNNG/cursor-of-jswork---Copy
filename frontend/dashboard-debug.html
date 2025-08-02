@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .debug-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .debug-item {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .error { background: #f8d7da; border-color: #f5c6cb; }
+        .warning { background: #fff3cd; border-color: #ffeaa7; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>Dashboard Debug Page</h1>
+        <p>This page will help us debug the dashboard issues.</p>
+        
+        <div class="debug-item">
+            <h3>Authentication Status</h3>
+            <div id="auth-status">Checking...</div>
+        </div>
+        
+        <div class="debug-item">
+            <h3>LocalStorage Contents</h3>
+            <div id="localstorage-content">Checking...</div>
+        </div>
+        
+        <div class="debug-item">
+            <h3>API Test</h3>
+            <button onclick="testAPI()">Test API Connection</button>
+            <div id="api-result">Click button to test</div>
+        </div>
+        
+        <div class="debug-item">
+            <h3>Actions</h3>
+            <button onclick="clearStorage()">Clear LocalStorage</button>
+            <button onclick="goToLogin()">Go to Login</button>
+            <button onclick="goToDashboard()">Go to Dashboard</button>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication status
+        function checkAuth() {
+            const token = localStorage.getItem('jwtToken');
+            const userInfo = localStorage.getItem('userInfo');
+            
+            const authStatus = document.getElementById('auth-status');
+            const storageContent = document.getElementById('localstorage-content');
+            
+            if (token && userInfo) {
+                authStatus.innerHTML = '<span class="success">✅ Authenticated</span>';
+                try {
+                    const user = JSON.parse(userInfo);
+                    storageContent.innerHTML = `
+                        <div class="success">
+                            <strong>JWT Token:</strong> ${token.substring(0, 20)}...<br>
+                            <strong>User Info:</strong> ${JSON.stringify(user, null, 2)}
+                        </div>
+                    `;
+                } catch (error) {
+                    storageContent.innerHTML = `<div class="error">❌ Error parsing user info: ${error.message}</div>`;
+                }
+            } else {
+                authStatus.innerHTML = '<span class="error">❌ Not authenticated</span>';
+                storageContent.innerHTML = `
+                    <div class="warning">
+                        <strong>JWT Token:</strong> ${token ? 'Present' : 'Missing'}<br>
+                        <strong>User Info:</strong> ${userInfo ? 'Present' : 'Missing'}
+                    </div>
+                `;
+            }
+        }
+        
+        // Test API connection
+        async function testAPI() {
+            const result = document.getElementById('api-result');
+            result.innerHTML = 'Testing...';
+            
+            try {
+                const response = await fetch('http://localhost:3000/users', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    result.innerHTML = '<span class="success">✅ API connection successful</span>';
+                } else {
+                    result.innerHTML = `<span class="error">❌ API error: ${response.status}</span>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<span class="error">❌ API connection failed: ${error.message}</span>`;
+            }
+        }
+        
+        // Clear localStorage
+        function clearStorage() {
+            localStorage.clear();
+            checkAuth();
+            alert('LocalStorage cleared!');
+        }
+        
+        // Go to login
+        function goToLogin() {
+            window.location.href = 'login.html';
+        }
+        
+        // Go to dashboard
+        function goToDashboard() {
+            window.location.href = 'dashboard.html';
+        }
+        
+        // Check auth on page load
+        checkAuth();
+    </script>
+</body>
+</html> 

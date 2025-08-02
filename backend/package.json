@@ -1,0 +1,32 @@
+{
+  "name": "frosstbank-backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "migrate": "node migrations/create_messages_table.js",
+    "migrate-users": "node migrations/create_users_table.js",
+    "migrate-transactions": "node migrations/create_transactions_table.js",
+    "check-db": "node check-db.js",
+    "create-test-user": "node create-test-user.js",
+    "test-transactions": "node test-transactions.js",
+    "test-transaction-endpoint": "node test-transaction-endpoint.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^2.5.1",
+    "multer": "^2.0.2",
+    "node-fetch": "^2.6.7",
+    "pg": "^8.11.3",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

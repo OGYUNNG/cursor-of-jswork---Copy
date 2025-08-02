@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FroostBank Deposit</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #003366, #ff9900);
+      color: #be3f3f;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .deposit-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #3d1f74;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #3d1f74;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #2a1450;
+    }
+
+    .success-message {
+      color: green;
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="deposit-container">
+    <h2>Deposit Funds</h2>
+    <form id="depositForm">
+      <label for="account">Select Account:</label>
+      <select id="account" required>
+        <option value="">-- Choose an account --</option>
+        <option value="savings">Savings Account</option>
+        <option value="checking">Checking Account</option>
+      </select>
+
+      <label for="amount">Amount ($):</label>
+      <input type="number" id="amount" min="1" required placeholder="Enter amount" />
+
+      <div id="error" class="error-message"></div>
+
+      <button type="submit">Deposit</button>
+    </form>
+
+    <div id="success" class="success-message" style="display: none;">
+      Deposit successful!
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('depositForm');
+    const account = document.getElementById('account');
+    const amount = document.getElementById('amount');
+    const success = document.getElementById('success');
+    const error = document.getElementById('error');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const selectedAccount = account.value;
+      const depositAmount = parseFloat(amount.value);
+
+      // Reset messages
+      success.style.display = 'none';
+      error.textContent = '';
+
+      // Validation
+      if (!selectedAccount) {
+        error.textContent = 'Please select an account.';
+        return;
+      }
+
+      if (isNaN(depositAmount) || depositAmount <= 0) {
+        error.textContent = 'Please enter a valid deposit amount.';
+        return;
+      }
+
+      // Simulate deposit
+      success.style.display = 'block';
+      form.reset();
+    });
+  </script>
+</body>
+</html>

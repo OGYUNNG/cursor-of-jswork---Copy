@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrosstBank | Account Activity</title>
+    <link rel="stylesheet" href="activity.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Frosst<span>Bank</span></div>
+            <div class="user-menu">
+                <div class="notification-icon">🔔</div>
+                <div class="user-profile">👤</div>
+            </div>
+        </header>
+
+        <main class="activity-container">
+            <div class="activity-header">
+                <h1>Account Activity</h1>
+                <div class="account-selector">
+                    <select class="account-dropdown">
+                        <option>Primary Checking (•••• 4567)</option>
+                        <option>Savings Account (•••• 8910)</option>
+                        <option>Credit Card (•••• 3456)</option>
+                    </select>
+                    <div class="current-balance">
+                        <span class="balance-label">Available Balance:</span>
+                        <span class="balance-amount">$8,245.50</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-filters">
+                <div class="filter-group">
+                    <label for="date-range">Date Range:</label>
+                    <select id="date-range" class="filter-control">
+                        <option>Last 30 days</option>
+                        <option>Last 60 days</option>
+                        <option>Last 90 days</option>
+                        <option>Custom range</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="transaction-type">Transaction Type:</label>
+                    <select id="transaction-type" class="filter-control">
+                        <option>All Transactions</option>
+                        <option>Deposits</option>
+                        <option>Withdrawals</option>
+                        <option>Transfers</option>
+                        <option>Payments</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="amount-range">Amount Range:</label>
+                    <select id="amount-range" class="filter-control">
+                        <option>Any Amount</option>
+                        <option>Under $100</option>
+                        <option>$100 - $500</option>
+                        <option>$500 - $1,000</option>
+                        <option>Over $1,000</option>
+                    </select>
+                </div>
+                <button class="filter-btn">Apply Filters</button>
+                <button class="export-btn">Export</button>
+            </div>
+
+            <div class="activity-search">
+                <div class="search-container">
+                    <input type="text" placeholder="Search transactions..." class="search-input">
+                    <button class="search-btn">Search</button>
+                </div>
+                <div class="result-count">Showing 25 of 87 transactions</div>
+            </div>
+
+            <div class="transactions-list">
+                <div class="transaction-header">
+                    <div class="header-date">Date</div>
+                    <div class="header-description">Description</div>
+                    <div class="header-category">Category</div>
+                    <div class="header-amount">Amount</div>
+                    <div class="header-status">Status</div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-date">
+                        <div class="date-day">Jul 28</div>
+                        <div class="date-time">2:45 PM</div>
+                    </div>
+                    <div class="transaction-description">
+                        <div class="merchant">Amazon Marketplace</div>
+                        <div class="details">Electronics purchase</div>
+                    </div>
+                    <div class="transaction-category">
+                        <div class="category-badge shopping">Shopping</div>
+                    </div>
+                    <div class="transaction-amount negative">-$129.99</div>
+                    <div class="transaction-status completed">Completed</div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-date">
+                        <div class="date-day">Jul 27</div>
+                        <div class="date-time">9:15 AM</div>
+                    </div>
+                    <div class="transaction-description">
+                        <div class="merchant">Salary Deposit</div>
+                        <div class="details">ACME Corp - Monthly salary</div>
+                    </div>
+                    <div class="transaction-category">
+                        <div class="category-badge income">Income</div>
+                    </div>
+                    <div class="transaction-amount positive">+$3,250.00</div>
+                    <div class="transaction-status completed">Completed</div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-date">
+                        <div class="date-day">Jul 25</div>
+                        <div class="date-time">6:30 PM</div>
+                    </div>
+                    <div class="transaction-description">
+                        <div class="merchant">Starbucks</div>
+                        <div class="details">Coffee purchase</div>
+                    </div>
+                    <div class="transaction-category">
+                        <div class="category-badge food">Food & Dining</div>
+                    </div>
+                    <div class="transaction-amount negative">-$5.75</div>
+                    <div class="transaction-status completed">Completed</div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-date">
+                        <div class="date-day">Jul 24</div>
+                        <div class="date-time">11:20 AM</div>
+                    </div>
+                    <div class="transaction-description">
+                        <div class="merchant">Transfer to Savings</div>
+                        <div class="details">Monthly savings deposit</div>
+                    </div>
+                    <div class="transaction-category">
+                        <div class="category-badge transfer">Transfer</div>
+                    </div>
+                    <div class="transaction-amount negative">-$500.00</div>
+                    <div class="transaction-status completed">Completed</div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-date">
+                        <div class="date-day">Jul 22</div>
+                        <div class="date-time">3:15 PM</div>
+                    </div>
+                    <div class="transaction-description">
+                        <div class="merchant">Netflix Subscription</div>
+                        <div class="details">Monthly subscription</div>
+                    </div>
+                    <div class="transaction-category">
+                        <div class="category-badge entertainment">Entertainment</div>
+                    </div>
+                    <div class="transaction-amount negative">-$14.99</div>
+                    <div class="transaction-status pending">Pending</div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-date">
+                        <div class="date-day">Jul 20</div>
+                        <div class="date-time">1:45 PM</div>
+                    </div>
+                    <div class="transaction-description">
+                        <div class="merchant">Whole Foods Market</div>
+                        <div class="details">Grocery shopping</div>
+                    </div>
+                    <div class="transaction-category">
+                        <div class="category-badge groceries">Groceries</div>
+                    </div>
+                    <div class="transaction-amount negative">-$87.32</div>
+                    <div class="transaction-status completed">Completed</div>
+                </div>
+
+                <div class="transaction-item">
+                    <div class="transaction-date">
+                        <div class="date-day">Jul 18</div>
+                        <div class="date-time">7:30 PM</div>
+                    </div>
+                    <div class="transaction-description">
+                        <div class="merchant">Uber Ride</div>
+                        <div class="details">Transportation</div>
+                    </div>
+                    <div class="transaction-category">
+                        <div class="category-badge transportation">Transportation</div>
+                    </div>
+                    <div class="transaction-amount negative">-$23.50</div>
+                    <div class="transaction-status completed">Completed</div>
+                </div>
+            </div>
+
+            <div class="pagination-controls">
+                <button class="pagination-btn prev" disabled>Previous</button>
+                <div class="page-numbers">
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                </div>
+                <button class="pagination-btn next">Next</button>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Contact Support</a>
+                <a href="#" class="footer-link">FAQs</a>
+                <a href="#" class="footer-link">Terms & Conditions</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+            </div>
+            <p>© 2023 MyBank. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+      // Check if user is authenticated
+      function checkAuth() {
+        const token = localStorage.getItem('jwtToken');
+        if (!token) {
+          window.location.href = 'login.html';
+          return null;
+        }
+        return token;
+      }
+
+      // Get user info from JWT token
+      function getUserInfo() {
+        const userInfo = localStorage.getItem('userInfo');
+        if (!userInfo) {
+          window.location.href = 'login.html';
+          return null;
+        }
+        return JSON.parse(userInfo);
+      }
+
+      // API helper function
+      async function apiCall(endpoint, options = {}) {
+        const token = checkAuth();
+        if (!token) return null;
+
+        const response = await fetch(`http://localhost:4000/api${endpoint}`, {
+          ...options,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            ...options.headers
+          }
+        });
+
+        if (response.status === 401) {
+          localStorage.removeItem('jwtToken');
+          localStorage.removeItem('userInfo');
+          window.location.href = 'login.html';
+          return null;
+        }
+
+        return response.json();
+      }
+
+      // Fetch transactions from backend API
+      async function fetchTransactions() {
+        try {
+          const transactions = await apiCall('/transactions');
+          if (transactions) {
+            renderTransactions(transactions);
+          }
+        } catch (error) {
+          console.error('Error fetching transactions:', error);
+          document.querySelector('.transactions-list').innerHTML = '<div class="p-8 text-center text-gray-500">Error loading transactions. Please try again.</div>';
+        }
+      }
+
+      // Render transactions for this user
+      function renderTransactions(transactions) {
+        const container = document.querySelector('.transactions-list');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        if (!transactions || transactions.length === 0) {
+          container.innerHTML = '<div class="p-8 text-center text-gray-500">No transactions found for your account.</div>';
+          return;
+        }
+
+        // Header
+        container.innerHTML = `
+          <div class="transaction-header">
+            <div class="header-date">Date</div>
+            <div class="header-description">Description</div>
+            <div class="header-category">Category</div>
+            <div class="header-amount">Amount</div>
+            <div class="header-status">Status</div>
+          </div>
+        `;
+
+        // Transactions
+        transactions.forEach(tx => {
+          container.innerHTML += `
+            <div class="transaction-item">
+              <div class="transaction-date">
+                <div class="date-day">${tx.date}</div>
+                <div class="date-time">${tx.time}</div>
+              </div>
+              <div class="transaction-description">
+                <div class="merchant">${tx.description}</div>
+                <div class="details">${tx.category}</div>
+              </div>
+              <div class="transaction-category">
+                <div class="category-badge">${tx.category}</div>
+              </div>
+              <div class="transaction-amount ${tx.amount < 0 ? 'negative' : 'positive'}">${tx.amount < 0 ? '-' : '+'}$${Math.abs(tx.amount).toLocaleString('en-US', {minimumFractionDigits:2})}</div>
+              <div class="transaction-status ${tx.status}">${tx.status.charAt(0).toUpperCase() + tx.status.slice(1)}</div>
+            </div>
+          `;
+        });
+      }
+
+      // On page load, fetch and render user transactions
+      document.addEventListener('DOMContentLoaded', function() {
+        fetchTransactions();
+      });
+    </script>
+</body>
+</html>

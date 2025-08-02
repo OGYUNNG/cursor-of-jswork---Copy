@@ -1,0 +1,69 @@
+.dashboard {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.user-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.profile-pic {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #003057;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.profile-upload-label {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-upload-label::after {
+  content: "✏️";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  font-size: 0.8rem;
+  border-radius: 50%;
+  padding: 2px;
+  border: 1px solid #003057;
+}
+
+.account-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: #f1f5f9;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.transactions table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.transactions th, .transactions td {
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.chart {
+  margin-top: 2rem;
+}

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Notification Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .admin-panel {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            height: 600px;
+        }
+        .user-list {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .user-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            background: white;
+        }
+        .user-item:hover {
+            background: #f0f0f0;
+        }
+        .user-item.selected {
+            background: #e3f2fd;
+        }
+        .user-item.has-messages {
+            background: #fff3e0;
+        }
+        .chat-window {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+        .chat-input-container {
+            padding: 15px;
+            border-top: 1px solid #ccc;
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .send-btn {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background: #e3f2fd;
+            margin-right: 20%;
+        }
+        .admin-message {
+            background: #f3e5f5;
+            margin-left: 20%;
+            text-align: right;
+        }
+        .status {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        .disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .notification-badge {
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Admin Notification Test</h1>
+    
+    <div class="test-container">
+        <h3>Test Purpose</h3>
+        <p>This page simulates the admin interface to test automatic message notifications. Admin should receive notifications for all incoming messages without needing to click on users.</p>
+    </div>
+    
+    <div id="status" class="status disconnected">
+        ❌ Disconnected from chat server
+    </div>
+    
+    <div class="admin-panel">
+        <div class="user-list">
+            <div class="user-item" style="background: #f8f9fa; font-weight: bold; text-align: center;">
+                Connected Users
+            </div>
+            <div id="connected-users">
+                <!-- Users will be populated here -->
+            </div>
+        </div>
+        
+        <div class="chat-window">
+            <div class="chat-header" id="chat-header">
+                Select a user to start chatting
+            </div>
+            <div class="chat-messages" id="admin-chat-messages">
+                <div class="message">
+                    <div style="text-align: center; color: #666;">
+                        Welcome to the admin chat test! Messages from users will appear here automatically.
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="admin-chat-input" class="chat-input" placeholder="Type your reply..." onkeypress="handleEnter(event)">
+                <button class="send-btn" onclick="sendAdminMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        // Admin test data
+        const adminUser = {
+            id: 'admin-test-' + Date.now(),
+            name: 'Test Admin',
+            role: 'admin'
+        };
+
+        // Initialize Socket.io connection
+        const socket = io('http://localhost:3100');
+        
+        // Admin state
+        let activeChats = new Map();
+        let currentChatUser = null;
+        
+        // DOM elements
+        const statusDiv = document.getElementById('status');
+        const connectedUsersDiv = document.getElementById('connected-users');
+        const chatHeader = document.getElementById('chat-header');
+        const chatMessages = document.getElementById('admin-chat-messages');
+        const chatInput = document.getElementById('admin-chat-input');
+
+        // Socket connection status
+        socket.on('connect', () => {
+            console.log('✅ Admin connected to chat server');
+            statusDiv.textContent = '✅ Admin connected to chat server';
+            statusDiv.className = 'status connected';
+            
+            // Register as admin
+            socket.emit('register', {
+                role: 'admin',
+                userId: adminUser.id,
+                name: adminUser.name
+            });
+        });
+
+        socket.on('disconnect', () => {
+            console.log('❌ Admin disconnected from chat server');
+            statusDiv.textContent = '❌ Admin disconnected from chat server';
+            statusDiv.className = 'status disconnected';
+        });
+
+        // Handle new messages from users
+        socket.on('new-message', data => {
+            console.log('📬 Message from user:', data);
+            
+            // Add to active chats
+            if (!activeChats.has(data.userId)) {
+                activeChats.set(data.userId, {
+                    userId: data.userId,
+                    name: data.from,
+                    messages: []
+                });
+            }
+            
+            const chat = activeChats.get(data.userId);
+            chat.messages.push(data);
+            
+            // ✅ Always display the message in admin chat window
+            addAdminChatMessage(data, true);
+            
+            // ✅ Show notification
+            showNotification(`New message from ${data.from}: ${data.message.substring(0, 30)}...`);
+            
+            // ✅ Update connected users list
+            updateConnectedUsers();
+            
+            // ✅ Auto-select the user if no current chat is active
+            if (!currentChatUser) {
+                selectUserForChat(chat);
+            }
+        });
+
+        // Handle user connections
+        socket.on('user-connected', (user) => {
+            console.log('👤 User connected:', user);
+            activeChats.set(user.userId, {
+                userId: user.userId,
+                name: user.name,
+                messages: []
+            });
+            updateConnectedUsers();
+            showNotification(`${user.name} connected`);
+        });
+
+        // Handle user disconnections
+        socket.on('user-disconnected', (user) => {
+            console.log('👤 User disconnected:', user);
+            activeChats.delete(user.userId);
+            updateConnectedUsers();
+            showNotification(`${user.name} disconnected`);
+        });
+
+        // Add admin chat message
+        function addAdminChatMessage(data, isFromUser = false) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${isFromUser ? 'user-message' : 'admin-message'}`;
+            
+            const time = new Date().toLocaleTimeString();
+            msgDiv.innerHTML = `
+                <div><strong>${isFromUser ? data.from : 'Admin'}:</strong> ${data.message}</div>
+                <div style="font-size: 12px; color: #666; margin-top: 5px;">${time}</div>
+            `;
+            
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Update connected users list
+        function updateConnectedUsers() {
+            connectedUsersDiv.innerHTML = '';
+            activeChats.forEach(chat => {
+                const userDiv = document.createElement('div');
+                userDiv.className = 'user-item';
+                userDiv.setAttribute('data-user-id', chat.userId);
+                
+                const messageCount = chat.messages ? chat.messages.length : 0;
+                const hasMessages = messageCount > 0;
+                
+                userDiv.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div><strong>${chat.name}</strong></div>
+                            <div style="font-size: 12px; color: #666;">ID: ${chat.userId}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 12px; color: #28a745;">● Online</div>
+                            ${hasMessages ? `<span class="notification-badge">${messageCount}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                userDiv.onclick = () => selectUserForChat(chat);
+                connectedUsersDiv.appendChild(userDiv);
+            });
+        }
+
+        // Select user for chat
+        function selectUserForChat(user) {
+            currentChatUser = user;
+            chatHeader.textContent = `Chat with ${user.name}`;
+            
+            // Clear chat messages
+            chatMessages.innerHTML = '';
+            
+            // Display all messages from this user
+            if (user.messages && user.messages.length > 0) {
+                user.messages.forEach(msg => {
+                    addAdminChatMessage(msg, true);
+                });
+            }
+            
+            // Update UI
+            document.querySelectorAll('.user-item').forEach(item => {
+                item.classList.remove('selected', 'has-messages');
+            });
+            
+            const userElement = document.querySelector(`[data-user-id="${user.userId}"]`);
+            if (userElement) {
+                userElement.classList.add('selected');
+            }
+            
+            // Clear messages from the user's chat history
+            if (user.messages) {
+                user.messages.length = 0;
+            }
+            
+            updateConnectedUsers();
+        }
+
+        // Send admin message
+        function sendAdminMessage() {
+            const message = chatInput.value.trim();
+            if (!message || !currentChatUser) return;
+
+            // Send message to specific user
+            socket.emit('admin-reply', {
+                userId: currentChatUser.userId,
+                message: message
+            });
+
+            addAdminChatMessage({ message }, false);
+            chatInput.value = '';
+        }
+
+        // Handle Enter key
+        function handleEnter(event) {
+            if (event.key === 'Enter') {
+                sendAdminMessage();
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #007bff;
+                color: white;
+                padding: 15px;
+                border-radius: 8px;
+                z-index: 1000;
+                max-width: 300px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        console.log('Admin notification test page loaded');
+    </script>
+</body>
+</html> 

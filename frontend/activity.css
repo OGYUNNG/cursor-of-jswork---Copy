@@ -1,0 +1,400 @@
+/* Global Styles */
+:root {
+    --primary: #003366;
+    --primary-dark: #1a4bbd;
+    --secondary: #f8f9fa;
+    --text: #333;
+    --text-light: #6c757d;
+    --danger: #dc3545;
+    --success: #28a745;
+    --warning: #ffc107;
+    --border: #e0e0e0;
+    --positive: #28a745;
+    --negative: #dc3545;
+    --pending: #ffc107;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: var(--text);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 30px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+}
+.logo span{
+color: #ff9900
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.notification-icon, .user-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Activity Container */
+.activity-container {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.activity-header {
+    margin-bottom: 30px;
+}
+
+.activity-header h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.account-selector {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.account-dropdown {
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.current-balance {
+    margin-left: auto;
+    text-align: right;
+}
+
+.balance-label {
+    display: block;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.balance-amount {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Activity Filters */
+.activity-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 180px;
+}
+
+.filter-group label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.filter-control {
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: white;
+}
+
+.filter-btn, .export-btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.filter-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+}
+
+.filter-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.export-btn {
+    background: none;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.export-btn:hover {
+    background-color: rgba(42, 91, 215, 0.1);
+}
+
+/* Activity Search */
+.activity-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-container {
+    display: flex;
+    width: 400px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: 6px 0 0 6px;
+    font-size: 14px;
+}
+
+.search-btn {
+    padding: 10px 20px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.result-count {
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* Transactions List */
+.transactions-list {
+    margin-bottom: 30px;
+}
+
+.transaction-header {
+    display: flex;
+    padding: 15px;
+    background-color: var(--secondary);
+    border-radius: 6px;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 10px;
+}
+
+.header-date { width: 15%; }
+.header-description { width: 35%; }
+.header-category { width: 20%; }
+.header-amount { width: 15%; text-align: right; }
+.header-status { width: 15%; text-align: center; }
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid var(--border);
+    transition: background-color 0.2s;
+}
+
+.transaction-item:hover {
+    background-color: rgba(42, 91, 215, 0.05);
+}
+
+.transaction-date {
+    width: 15%;
+}
+
+.date-day {
+    font-weight: 500;
+}
+
+.date-time {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+.transaction-description {
+    width: 35%;
+}
+
+.merchant {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.details {
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.transaction-category {
+    width: 20%;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.category-badge.shopping { background-color: #e3f2fd; color: #1976d2; }
+.category-badge.income { background-color: #e8f5e9; color: #2e7d32; }
+.category-badge.food { background-color: #fff3e0; color: #e65100; }
+.category-badge.transfer { background-color: #f3e5f5; color: #7b1fa2; }
+.category-badge.entertainment { background-color: #fce4ec; color: #c2185b; }
+.category-badge.groceries { background-color: #e0f7fa; color: #00838f; }
+.category-badge.transportation { background-color: #fff8e1; color: #ff8f00; }
+
+.transaction-amount {
+    width: 15%;
+    text-align: right;
+    font-weight: 500;
+}
+
+.transaction-amount.positive {
+    color: var(--positive);
+}
+
+.transaction-amount.negative {
+    color: var(--negative);
+}
+
+.transaction-status {
+    width: 15%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.transaction-status.completed {
+    color: var(--success);
+}
+
+.transaction-status.pending {
+    color: var(--warning);
+}
+
+/* Pagination Controls */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.pagination-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    background-color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-btn:not(:disabled):hover {
+    background-color: var(--secondary);
+}
+
+.page-numbers {
+    display: flex;
+    gap: 5px;
+}
+
+.page-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    background-color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.page-btn.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.page-btn:not(.active):hover {
+    background-color: var(--secondary);
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.footer-link {
+    color: var(--text-light);
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: var(--primary);
+}

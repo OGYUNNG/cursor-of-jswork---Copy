@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | FrosstBank</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="contactstyle.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="logo">Frosst<span>Bank</span></div>
+      <nav class="nav-links" id="navLinks">
+        <a href="personal banking.html">Personal</a>
+        <a href="businesspage.html">Business</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+      <a href="login.html"><button class="login-btn">Login</button></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="contact-page">
+    <!-- Hero Section -->
+    <section class="contact-hero">
+      <div class="hero-background">
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="container">
+        <div class="hero-content">
+          <h1>Get in Touch</h1>
+          <p>We're here to help you with all your banking needs. Reach out to us anytime.</p>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Support</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">< 2min</span>
+              <span class="stat-label">Response</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">98%</span>
+              <span class="stat-label">Satisfaction</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Methods Section -->
+    <section class="contact-methods">
+      <div class="container">
+        <div class="methods-grid">
+          <div class="method-card">
+            <div class="method-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <h3>Call Us</h3>
+            <p>Speak directly with our customer service team</p>
+            <a href="tel:+1800FRB1234" class="method-link">
+              <span class="method-number">(800) FRB-1234</span>
+              <span class="method-availability">Available 24/7</span>
+            </a>
+          </div>
+
+          <div class="method-card">
+            <div class="method-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <h3>Email Us</h3>
+            <p>Send us a detailed message and we'll respond quickly</p>
+            <a href="mailto:support@frosstbank.com" class="method-link">
+              <span class="method-number">support@frosstbank.com</span>
+              <span class="method-availability">Response within 2 hours</span>
+            </a>
+          </div>
+
+          <div class="method-card">
+            <div class="method-icon">
+              <i class="fas fa-comments"></i>
+            </div>
+            <h3>Live Chat</h3>
+            <p>Chat with our support team in real-time</p>
+            <a href="livechat.html" class="method-link">
+              <span class="method-number">Start Chat</span>
+              <span class="method-availability">Mon-Fri: 8am-8pm EST</span>
+            </a>
+          </div>
+
+          <div class="method-card">
+            <div class="method-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3>Visit Us</h3>
+            <p>Stop by our headquarters for in-person assistance</p>
+            <a href="#" class="method-link">
+              <span class="method-number">123 Financial District</span>
+              <span class="method-availability">New York, NY 10001</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+      <div class="container">
+        <div class="form-container">
+          <div class="form-header">
+            <h2>Send Us a Message</h2>
+            <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+          </div>
+          
+          <form id="contactForm" class="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name*</label>
+                <input type="text" id="firstName" name="firstName" required>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name*</label>
+                <input type="text" id="lastName" name="lastName" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address*</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="subject">How can we help you?*</label>
+              <select id="subject" name="subject" required>
+                <option value="" disabled selected>Select a topic</option>
+                <option value="account">Account Inquiry</option>
+                <option value="loan">Loan Application</option>
+                <option value="card">Card Services</option>
+                <option value="digital">Digital Banking</option>
+                <option value="investment">Investment Services</option>
+                <option value="business">Business Banking</option>
+                <option value="technical">Technical Support</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message*</label>
+              <textarea id="message" name="message" rows="6" placeholder="Please provide details about your inquiry..." required></textarea>
+            </div>
+
+            <div class="form-group checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="newsletter" name="newsletter">
+                <span class="checkmark"></span>
+                I'd like to receive updates about new services and offers
+              </label>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <span>Send Message</span>
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="faq-header">
+          <h2>Frequently Asked Questions</h2>
+          <p>Quick answers to common questions</p>
+        </div>
+        
+        <div class="faq-grid">
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>How do I reset my online banking password?</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>You can reset your password by clicking the "Forgot Password" link on the login page, or by calling our support team at (800) FRB-1234.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>What are your business hours?</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Our branches are open Monday-Friday 9am-5pm, and Saturday 9am-1pm. Our customer service line is available 24/7.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>How do I report a lost or stolen card?</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>Call us immediately at (800) FRB-1234 or use our mobile app to report a lost or stolen card. We'll deactivate it and issue a replacement.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>What documents do I need to open an account?</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>You'll need a valid government-issued ID, proof of address, and Social Security number. Business accounts require additional documentation.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-cta">
+          <p>Can't find what you're looking for?</p>
+          <a href="FAQ.index.html" class="faq-link">View All FAQs</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="footer-logo">Frosst<span>Bank</span></div>
+          <p>Building relationships that last since 1868. Your trusted partner in financial success.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="personal banking.html">Personal Banking</a></li>
+            <li><a href="businesspage.html">Business Banking</a></li>
+            <li><a href="cards.html">Credit Cards</a></li>
+            <li><a href="transfer.html">Money Transfer</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="FAQ.index.html">Help Center</a></li>
+            <li><a href="livechat.html">Live Chat</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">Report Fraud</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Investor Relations</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <p>&copy; 2025 FrosstBank. All rights reserved. Member FDIC. Equal Housing Lender.</p>
+          <div class="legal-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Security</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Chat Button -->
+  <div class="floating-chat-container" id="floatingChatContainer">
+    <button class="floating-chat-btn" id="floatingChatBtn" title="Start Chat">
+      <i class="fas fa-comments"></i>
+      <span class="chat-label">Chat with us</span>
+    </button>
+  </div>
+
+  <!-- Floating Chat Widget -->
+  <div class="floating-chat-widget" id="floatingChatWidget" style="display: none;">
+    <div class="chat-widget-header">
+      <div class="chat-widget-title">
+        <i class="fas fa-headset"></i>
+        <span>Live Support</span>
+      </div>
+      <button class="chat-widget-close" id="chatWidgetClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="chat-widget-body">
+      <div class="chat-widget-messages" id="chatWidgetMessages">
+        <div class="chat-widget-message bot">
+          <div class="message-avatar">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="message-content">
+            <div class="message-text">Hi there! 👋 How can we help you today?</div>
+            <div class="message-time">Just now</div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-widget-input-container">
+        <input type="text" id="chatWidgetInput" placeholder="Type a message..." />
+        <button id="chatWidgetSend">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Socket.io for chat -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="main.js"></script>
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+      document.body.classList.toggle('no-scroll');
+    });
+
+    // FAQ Accordion
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const faqItem = question.parentElement;
+        const answer = faqItem.querySelector('.faq-answer');
+        const icon = question.querySelector('i');
+        
+        // Close other open FAQs
+        document.querySelectorAll('.faq-item').forEach(item => {
+          if (item !== faqItem) {
+            item.classList.remove('active');
+            item.querySelector('.faq-answer').style.maxHeight = null;
+            item.querySelector('i').classList.remove('fa-chevron-up');
+            item.querySelector('i').classList.add('fa-chevron-down');
+          }
+        });
+        
+        // Toggle current FAQ
+        faqItem.classList.toggle('active');
+        
+        if (faqItem.classList.contains('active')) {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          icon.classList.remove('fa-chevron-down');
+          icon.classList.add('fa-chevron-up');
+        } else {
+          answer.style.maxHeight = null;
+          icon.classList.remove('fa-chevron-up');
+          icon.classList.add('fa-chevron-down');
+        }
+      });
+    });
+
+    // Form submission with enhanced UX
+    const contactForm = document.getElementById('contactForm');
+    
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const submitBtn = contactForm.querySelector('.submit-btn');
+      const originalText = submitBtn.innerHTML;
+      
+      // Show loading state
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      submitBtn.disabled = true;
+      
+      // Simulate form submission
+      setTimeout(() => {
+        // Show success message
+        showNotification('Thank you for your message! We\'ll get back to you within 2 hours.', 'success');
+        contactForm.reset();
+        
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }, 2000);
+    });
+
+    // Notification function
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      notification.innerHTML = `
+        <div class="notification-content">
+          <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+          <span>${message}</span>
+        </div>
+        <button class="notification-close">
+          <i class="fas fa-times"></i>
+        </button>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      // Auto remove after 5 seconds
+      setTimeout(() => {
+        notification.remove();
+      }, 5000);
+      
+      // Manual close
+      notification.querySelector('.notification-close').addEventListener('click', () => {
+        notification.remove();
+      });
+    }
+
+    // Form validation
+    const inputs = contactForm.querySelectorAll('input, select, textarea');
+    
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => {
+        validateField(input);
+      });
+      
+      input.addEventListener('input', () => {
+        if (input.classList.contains('error')) {
+          validateField(input);
+        }
+      });
+    });
+
+    function validateField(field) {
+      const value = field.value.trim();
+      const fieldName = field.name;
+      
+      // Remove existing error styling
+      field.classList.remove('error');
+      const existingError = field.parentElement.querySelector('.error-message');
+      if (existingError) {
+        existingError.remove();
+      }
+      
+      // Validation rules
+      let isValid = true;
+      let errorMessage = '';
+      
+      if (field.hasAttribute('required') && !value) {
+        isValid = false;
+        errorMessage = 'This field is required';
+      } else if (fieldName === 'email' && value && !isValidEmail(value)) {
+        isValid = false;
+        errorMessage = 'Please enter a valid email address';
+      } else if (fieldName === 'phone' && value && !isValidPhone(value)) {
+        isValid = false;
+        errorMessage = 'Please enter a valid phone number';
+      }
+      
+      if (!isValid) {
+        field.classList.add('error');
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message';
+        errorElement.textContent = errorMessage;
+        field.parentElement.appendChild(errorElement);
+      }
+    }
+
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    function isValidPhone(phone) {
+      const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+      return phoneRegex.test(phone.replace(/[\s\-\(\)]/g, ''));
+    }
+  </script>
+</body>
+</html>

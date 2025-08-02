@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .chat-container {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .chat-header {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            cursor: pointer;
+        }
+        .chat-box {
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+        .chat-input-container {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #ccc;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .chat-send-btn {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background: #007bff;
+            color: white;
+            margin-left: 20%;
+        }
+        .bot-message {
+            background: white;
+            border: 1px solid #ccc;
+            margin-right: 20%;
+        }
+        .status {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        .disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat Test Page</h1>
+    
+    <div id="status" class="status disconnected">
+        ❌ Disconnected from chat server
+    </div>
+    
+    <div class="chat-container">
+        <div class="chat-header" onclick="toggleChat()">
+            Live Chat Test
+        </div>
+        <div class="chat-box" id="chat-box">
+            <div class="chat-messages" id="chat-messages">
+                <div class="bot-message">
+                    <div class="message-text">Welcome to the chat test! 👋</div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Type a message..." onkeydown="handleChat(event)">
+                <button class="chat-send-btn" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        // Test user data
+        const testUser = {
+            id: 'test-user-123',
+            name: 'Test User',
+            role: 'user'
+        };
+
+        // Initialize Socket.io connection
+        const socket = io('http://localhost:3100');
+        
+        // DOM elements
+        const chatBox = document.getElementById('chat-box');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const statusDiv = document.getElementById('status');
+
+        // Socket connection status
+        socket.on('connect', () => {
+            console.log('✅ Connected to chat server');
+            statusDiv.textContent = '✅ Connected to chat server';
+            statusDiv.className = 'status connected';
+            
+            // Register test user
+            socket.emit('register', {
+                role: 'user',
+                userId: testUser.id,
+                name: testUser.name,
+            });
+        });
+
+        socket.on('disconnect', () => {
+            console.log('❌ Disconnected from chat server');
+            statusDiv.textContent = '❌ Disconnected from chat server';
+            statusDiv.className = 'status disconnected';
+        });
+
+        // Handle incoming messages from admin
+        socket.on('admin-reply', data => {
+            console.log('Received admin reply:', data);
+            if (data && data.message) {
+                addMessage(data.message, "admin");
+            }
+        });
+
+        // Handle admin typing indicator
+        socket.on('admin-typing', data => {
+            console.log('Admin typing:', data);
+            showTypingIndicator(data.isTyping);
+        });
+
+        // Send message when Enter is pressed
+        function handleChat(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
+
+        // Send message function
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message === "") return;
+
+            console.log('Sending message:', message);
+            addMessage(message, "user");
+
+            // Send message to server for admin
+            socket.emit('user-message', {
+                message: message,
+                userId: testUser.id,
+                userName: testUser.name,
+                timestamp: new Date().toISOString()
+            });
+
+            chatInput.value = "";
+        }
+
+        // Append message to chat box
+        function addMessage(text, sender) {
+            const msg = document.createElement("div");
+            msg.className = `message ${sender}-message`;
+            
+            const time = new Date().toLocaleTimeString();
+            
+            msg.innerHTML = `
+                <div class="message-text">${text}</div>
+                <div class="message-time">${time}</div>
+            `;
+            
+            chatMessages.appendChild(msg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            console.log(`Added ${sender} message:`, text);
+        }
+
+        // Show typing indicator
+        function showTypingIndicator(isTyping) {
+            console.log('Typing indicator:', isTyping);
+        }
+
+        // Toggle chat visibility
+        function toggleChat() {
+            chatBox.style.display = chatBox.style.display === "none" ? "block" : "none";
+        }
+
+        // Add typing event listeners
+        chatInput.addEventListener('input', () => {
+            socket.emit('user-typing', {
+                userId: testUser.id,
+                isTyping: true
+            });
+            
+            setTimeout(() => {
+                socket.emit('user-typing', {
+                    userId: testUser.id,
+                    isTyping: false
+                });
+            }, 1000);
+        });
+
+        console.log('Chat test page loaded');
+    </script>
+</body>
+</html> 

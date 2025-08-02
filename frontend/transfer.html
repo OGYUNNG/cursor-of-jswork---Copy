@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer - Frosst Bank</title>
+    <link rel="stylesheet" href="transfer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                FrosstBank
+            </div>
+            <div class="user-menu">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="user-profile">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </header>
+
+        <main class="transfer-container">
+            <div class="transfer-header">
+                <h1><i class="fas fa-exchange-alt"></i> Transfer Funds</h1>
+                <div class="transfer-steps">
+                    <div class="step active" id="step1">
+                        <i class="fas fa-edit"></i>
+                        1. Details
+                    </div>
+                    <div class="step" id="step2">
+                        <i class="fas fa-eye"></i>
+                        2. Review
+                    </div>
+                    <div class="step" id="step3">
+                        <i class="fas fa-check-circle"></i>
+                        3. Confirm
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transfer Form -->
+            <div class="transfer-form-container" id="transferForm">
+                <form class="transfer-form">
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-credit-card"></i>
+                            From Account
+                        </h2>
+                        <div class="account-selector">
+                            <div class="account-option active">
+                                <div class="account-type">
+                                    <i class="fas fa-university"></i>
+                                    Primary Checking
+                                </div>
+                                <div class="account-number">•••• 4567</div>
+                                <div class="account-balance">$8,245.50</div>
+                            </div>
+                            <div class="account-option">
+                                <div class="account-type">
+                                    <i class="fas fa-piggy-bank"></i>
+                                    Savings
+                                </div>
+                                <div class="account-number">•••• 8910</div>
+                                <div class="account-balance">$12,100.00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-user-friends"></i>
+                            To Account
+                        </h2>
+                        <div class="transfer-type-tabs">
+                            <button type="button" class="tab-btn active" data-tab="my-accounts">
+                                <i class="fas fa-home"></i>
+                                My Accounts
+                            </button>
+                            <button type="button" class="tab-btn" data-tab="other-bank">
+                                <i class="fas fa-university"></i>
+                                Other Bank
+                            </button>
+                            <button type="button" class="tab-btn" data-tab="international">
+                                <i class="fas fa-globe"></i>
+                                International
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipient">
+                                <i class="fas fa-user"></i>
+                                Recipient
+                            </label>
+                            <select id="recipient" class="form-control">
+                                <option value="">Select recipient</option>
+                                <option value="1">John Smith (•••• 3456)</option>
+                                <option value="2">Sarah Johnson (•••• 7890)</option>
+                                <option value="3">Add new recipient</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="bank-selection" style="display: none;">
+                            <label for="bank-search">
+                                <i class="fas fa-search"></i>
+                                Search Banks
+                            </label>
+                            <div class="search-input-container">
+                                <input type="text" id="bank-search" class="form-control" placeholder="Type to search banks..." onkeyup="filterBanks()" oninput="updateSearchResults()">
+                                <button type="button" class="clear-search-btn" onclick="clearBankSearch()" title="Clear search">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="search-results-info" id="search-results-info"></div>
+                            
+                            <label for="bank-name" style="margin-top: 1rem;">
+                                <i class="fas fa-university"></i>
+                                Select Bank
+                            </label>
+                            <select id="bank-name" class="form-control" onchange="updateSelectedBank()">
+                                <option value="">Select a bank</option>
+                                <option value="chase">JPMorgan Chase Bank</option>
+                                <option value="bankofamerica">Bank of America</option>
+                                <option value="wellsfargo">Wells Fargo Bank</option>
+                                <option value="citibank">Citibank</option>
+                                <option value="usbank">U.S. Bank</option>
+                                <option value="pnc">PNC Bank</option>
+                                <option value="capitalone">Capital One Bank</option>
+                                <option value="tdbank">TD Bank</option>
+                                <option value="goldmansachs">Goldman Sachs Bank</option>
+                                <option value="morganstanley">Morgan Stanley Bank</option>
+                                <option value="citizens">Citizens Bank</option>
+                                <option value="keybank">KeyBank</option>
+                                <option value="fifththird">Fifth Third Bank</option>
+                                <option value="huntington">Huntington Bank</option>
+                                <option value="regions">Regions Bank</option>
+                                <option value="bbt">BB&T Bank</option>
+                                <option value="suntrust">SunTrust Bank</option>
+                                <option value="comerica">Comerica Bank</option>
+                                <option value="mbt">M&T Bank</option>
+                                <option value="bmo">BMO Harris Bank</option>
+                                <option value="ally">Ally Bank</option>
+                                <option value="discover">Discover Bank</option>
+                                <option value="americanexpress">American Express Bank</option>
+                                <option value="synchrony">Synchrony Bank</option>
+                                <option value="usaa">USAA Federal Savings Bank</option>
+                                <option value="navyfederal">Navy Federal Credit Union</option>
+                                <option value="statefarm">State Farm Bank</option>
+                                <option value="alliant">Alliant Credit Union</option>
+                                <option value="penfed">Pentagon Federal Credit Union</option>
+                                <option value="americanairlines">American Airlines Credit Union</option>
+                                <option value="boeing">Boeing Employees Credit Union</option>
+                                <option value="dcu">Digital Federal Credit Union</option>
+                                <option value="schoolsfirst">SchoolsFirst Federal Credit Union</option>
+                                <option value="americanfederal">American Federal Bank</option>
+                                <option value="firstrepublic">First Republic Bank</option>
+                                <option value="siliconvalley">Silicon Valley Bank</option>
+                                <option value="signature">Signature Bank</option>
+                                <option value="newyorkcommunity">New York Community Bank</option>
+                                <option value="flagstar">Flagstar Bank</option>
+                                <option value="citizensbusiness">Citizens Business Bank</option>
+                                <option value="eastwest">East West Bank</option>
+                                <option value="cathay">Cathay Bank</option>
+                                <option value="bankofthewest">Bank of the West</option>
+                                <option value="unionbank">Union Bank</option>
+                                <option value="citynational">City National Bank</option>
+                                <option value="pacificwestern">Pacific Western Bank</option>
+                                <option value="wintrust">Wintrust Financial</option>
+                                <option value="oldnational">Old National Bank</option>
+                                <option value="firstmerit">FirstMerit Bank</option>
+                                <option value="newyorkcommercial">New York Commercial Bank</option>
+                                <option value="astoria">Astoria Bank</option>
+                                <option value="stearns">Stearns Bank</option>
+                                <option value="firstcitizens">First Citizens Bank</option>
+                                <option value="southstate">SouthState Bank</option>
+                                <option value="cadence">Cadence Bank</option>
+                                <option value="simon">Simon Property Group Bank</option>
+                                <option value="bancorp">The Bancorp Bank</option>
+                                <option value="metabank">MetaBank</option>
+                                <option value="green">Green Dot Bank</option>
+                                <option value="go2bank">GO2bank</option>
+                                <option value="chime">Chime Bank</option>
+                                <option value="varomoney">Varo Money Bank</option>
+                                <option value="current">Current Bank</option>
+                                <option value="sofi">SoFi Bank</option>
+                                <option value="marcus">Marcus by Goldman Sachs</option>
+                                <option value="allylending">Ally Lending</option>
+                                <option value="lightstream">LightStream</option>
+                                <option value="lendingclub">LendingClub Bank</option>
+                                <option value="quickenloans">Quicken Loans Bank</option>
+                                <option value="rocketmortgage">Rocket Mortgage Bank</option>
+                                <option value="better">Better Mortgage Bank</option>
+                                <option value="loanDepot">loanDepot Bank</option>
+                                <option value="freedom">Freedom Mortgage Bank</option>
+                                <option value="unitedwholesale">United Wholesale Mortgage Bank</option>
+                                <option value="fairway">Fairway Independent Mortgage Bank</option>
+                                <option value="guaranteedrate">Guaranteed Rate Bank</option>
+                                <option value="movement">Movement Mortgage Bank</option>
+                                <option value="penny">PennyMac Bank</option>
+                                <option value="newrez">NewRez Bank</option>
+                                <option value="caliber">Caliber Home Loans Bank</option>
+                                <option value="amerihome">AmeriHome Mortgage Bank</option>
+                                <option value="plaza">Plaza Home Mortgage Bank</option>
+                                <option value="academy">Academy Mortgage Bank</option>
+                                <option value="supreme">Supreme Lending Bank</option>
+                                <option value="cherrycreek">Cherry Creek Mortgage Bank</option>
+                                <option value="parkside">Parkside Lending Bank</option>
+                                <option value="waterstone">Waterstone Mortgage Bank</option>
+                                <option value="guild">Guild Mortgage Bank</option>
+                                <option value="steve">Steve & Barry's Bank</option>
+                                <option value="americorps">AmeriCorps Bank</option>
+                                <option value="fanniemae">Fannie Mae Bank</option>
+                                <option value="freddiemac">Freddie Mac Bank</option>
+                                <option value="gnma">Ginnie Mae Bank</option>
+                                <option value="fhlb">Federal Home Loan Bank</option>
+                                <option value="farmcredit">Farm Credit Bank</option>
+                                <option value="cooperative">Cooperative Bank</option>
+                                <option value="mutual">Mutual Bank</option>
+                                <option value="savings">Savings Bank</option>
+                                <option value="trust">Trust Bank</option>
+                                <option value="national">National Bank</option>
+                                <option value="state">State Bank</option>
+                                <option value="community">Community Bank</option>
+                                <option value="regional">Regional Bank</option>
+                                <option value="local">Local Bank</option>
+                                <option value="online">Online Bank</option>
+                                <option value="digital">Digital Bank</option>
+                                <option value="neobank">Neobank</option>
+                                <option value="fintech">Fintech Bank</option>
+                                <option value="crypto">Crypto Bank</option>
+                                <option value="other">Other Bank</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="account-number">
+                                <i class="fas fa-hashtag"></i>
+                                Account Number
+                            </label>
+                            <input type="text" id="account-number" class="form-control" placeholder="Enter account number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="routing-number">
+                                <i class="fas fa-route"></i>
+                                Routing Number
+                            </label>
+                            <input type="text" id="routing-number" class="form-control" placeholder="Enter routing number">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Transfer Details
+                        </h2>
+                        <div class="form-group">
+                            <label for="amount">
+                                <i class="fas fa-dollar-sign"></i>
+                                Amount
+                            </label>
+                            <div class="amount-input">
+                                <span class="currency">$</span>
+                                <input type="number" id="amount" class="form-control" placeholder="0.00">
+                            </div>
+                            <div class="quick-amounts">
+                                <button type="button" class="quick-amount">$100</button>
+                                <button type="button" class="quick-amount">$500</button>
+                                <button type="button" class="quick-amount">$1,000</button>
+                                <button type="button" class="quick-amount">Other</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date">
+                                <i class="fas fa-calendar-alt"></i>
+                                Transfer Date
+                            </label>
+                            <select id="date" class="form-control">
+                                <option value="now">Transfer now</option>
+                                <option value="later">Schedule for later</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="memo">
+                                <i class="fas fa-sticky-note"></i>
+                                Memo (Optional)
+                            </label>
+                            <input type="text" id="memo" class="form-control" placeholder="e.g. Rent payment">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <a href="dashboard.html">
+                            <button type="button" class="btn btn-outline">
+                                <i class="fas fa-times"></i>
+                                Cancel
+                            </button>
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-arrow-right"></i>
+                            Continue
+                        </button>
+                    </div>
+                </form>
+
+                <div class="transfer-summary">
+                    <h3 class="summary-title">
+                        <i class="fas fa-clipboard-list"></i>
+                        Transfer Summary
+                    </h3>
+                    <div class="summary-item">
+                        <span class="summary-label">From:</span>
+                        <span class="summary-value">Primary Checking •••• 4567</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">To:</span>
+                        <span class="summary-value">John Smith •••• 3456</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Amount:</span>
+                        <span class="summary-value">$0.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Date:</span>
+                        <span class="summary-value">Today</span>
+                    </div>
+                    <div class="summary-item fee">
+                        <span class="summary-label">Fee:</span>
+                        <span class="summary-value">$0.00</span>
+                    </div>
+                    <div class="summary-total">
+                        <span class="total-label">Total:</span>
+                        <span class="total-value">$0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Step -->
+            <div class="review-container" id="reviewStep" style="display: none;">
+                <div class="review-content">
+                    <h2><i class="fas fa-eye"></i> Review Transfer</h2>
+                    <div class="review-details">
+                        <div class="review-item">
+                            <span class="review-label">From Account:</span>
+                            <span class="review-value" id="reviewFrom">Primary Checking •••• 4567</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">To Account:</span>
+                            <span class="review-value" id="reviewTo">John Smith •••• 3456</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Amount:</span>
+                            <span class="review-value" id="reviewAmount">$0.00</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Date:</span>
+                            <span class="review-value" id="reviewDate">Today</span>
+                        </div>
+                        <div class="review-item">
+                            <span class="review-label">Memo:</span>
+                            <span class="review-value" id="reviewMemo">-</span>
+                        </div>
+                    </div>
+                    <div class="review-actions">
+                        <button type="button" class="btn btn-outline" onclick="goBackToForm()">
+                            <i class="fas fa-arrow-left"></i>
+                            Back
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="confirmTransfer()">
+                            <i class="fas fa-check"></i>
+                            Confirm Transfer
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Transfer Status -->
+            <div class="pending-container" id="pendingStep" style="display: none;">
+                <div class="pending-content">
+                    <div class="pending-icon">⏳</div>
+                    <h2><i class="fas fa-clock"></i> Transfer Pending</h2>
+                    <p>Your transfer is being processed. You can track the status below.</p>
+                    
+                    <div class="transfer-status">
+                        <div class="status-item active">
+                            <div class="status-dot"></div>
+                            <span><i class="fas fa-check"></i> Transfer Submitted</span>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-dot"></div>
+                            <span><i class="fas fa-cog fa-spin"></i> Processing</span>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-dot"></div>
+                            <span><i class="fas fa-check-circle"></i> Completed</span>
+                        </div>
+                    </div>
+
+                    <div class="transfer-details-pending">
+                        <div class="detail-item">
+                            <span class="detail-label">Transfer ID:</span>
+                            <span class="detail-value" id="transferId">TRX-2025-001</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Estimated Completion:</span>
+                            <span class="detail-value">1-2 business days</span>
+                        </div>
+                    </div>
+
+                    <div class="live-chat-section">
+                        <h3><i class="fas fa-comments"></i> Need Help? Chat with Support</h3>
+                        <div class="chat-container">
+                            <div class="chat-messages" id="chatMessages">
+                                <div class="message admin">
+                                    <div class="message-content">
+                                        <strong>Support Agent:</strong> Hello! I'm here to help you with your transfer. How can I assist you today?
+                                    </div>
+                                    <div class="message-time">Just now</div>
+                                </div>
+                            </div>
+                            <div class="chat-input-container">
+                                <input type="text" id="chatInput" placeholder="Type your message..." class="chat-input">
+                                <button onclick="sendChatMessage()" class="chat-send-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Send
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pending-actions">
+                        <button type="button" class="btn btn-outline" onclick="goToDashboard()">
+                            <i class="fas fa-home"></i>
+                            Back to Dashboard
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="viewTransferHistory()">
+                            <i class="fas fa-history"></i>
+                            View Transfer History
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-links">
+                <a href="contact.html" class="footer-link">
+                    <i class="fas fa-phone"></i>
+                    Contact Support
+                </a>
+                <a href="FAQ.index.html" class="footer-link">
+                    <i class="fas fa-question-circle"></i>
+                    FAQs
+                </a>
+                <a href="termsofuse.html" class="footer-link">
+                    <i class="fas fa-file-contract"></i>
+                    Terms & Conditions
+                </a>
+            </div>
+            <p>© 2025 FrosstBank. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="transfer.js"></script>
+</body>
+</html>

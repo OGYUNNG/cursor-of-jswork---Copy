@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Banking Solutions | FrosstBank</title>
+  <link rel="stylesheet" href="businesspage.css">
+ <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="logo">Frosst<span>Bank</span></div>
+      <nav class="nav-links" id="navLinks">
+        <a href="personal banking.html">Personal</a>
+        <a href="businesspage.html" class="active">Business</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="login.html"><button class="login-btn">Login</button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button></a>
+    </div>
+  </header>
+  
+  <main>
+    <section class="business-hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Business Banking Solutions</h1>
+          <p>Tailored financial services to help your business grow and thrive</p>
+          <a href="contact.html" class="cta-btn">Speak with a Business Banker</a>
+        </div>
+      </div>
+    </section>
+    
+    <section class="business-features">
+      <div class="container">
+        <h2>Power Your Business Growth</h2>
+        <p class="section-subtitle">Comprehensive financial tools designed for businesses of all sizes</p>
+        
+        <div class="features-grid">
+          <div class="feature-card">
+            <i class="fas fa-building"></i>
+            <h3>Commercial Banking</h3>
+            <ul>
+              <li>Business checking & savings</li>
+              <li>Merchant services</li>
+              <li>Cash management</li>
+              <li>Payroll solutions</li>
+            </ul>
+          </div>
+          
+          <div class="feature-card">
+            <i class="fas fa-hand-holding-usd"></i>
+            <h3>Business Loans</h3>
+            <ul>
+              <li>Commercial real estate loans</li>
+              <li>Equipment financing</li>
+              <li>Working capital loans</li>
+              <li>SBA loans</li>
+            </ul>
+          </div>
+          
+          <div class="feature-card">
+            <i class="fas fa-credit-card"></i>
+            <h3>Credit Solutions</h3>
+            <ul>
+              <li>Business credit cards</li>
+              <li>Lines of credit</li>
+              <li>Letters of credit</li>
+              <li>Trade finance</li>
+            </ul>
+          </div>
+          
+          <div class="feature-card">
+            <i class="fas fa-chart-pie"></i>
+            <h3>Treasury Services</h3>
+            <ul>
+              <li>Online banking platform</li>
+              <li>Wire transfers</li>
+              <li>Positive pay services</li>
+              <li>Fraud prevention</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="business-calculator">
+      <div class="container">
+        <div class="calculator-container">
+          <div class="calculator-info">
+            <h2>Business Loan Calculator</h2>
+            <p>Estimate your monthly payments and find the right financing solution for your business needs.</p>
+          </div>
+          <div class="calculator-form">
+            <div class="form-group">
+              <label for="loan-amount">Loan Amount ($)</label>
+              <input type="range" id="loan-amount" min="10000" max="1000000" step="10000" value="250000">
+              <span class="amount-display" id="amount-display">$250,000</span>
+            </div>
+            <div class="form-group">
+              <label for="loan-term">Loan Term (years)</label>
+              <select id="loan-term">
+                <option value="1">1 Year</option>
+                <option value="3">3 Years</option>
+                <option value="5" selected>5 Years</option>
+                <option value="7">7 Years</option>
+                <option value="10">10 Years</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="interest-rate">Interest Rate (%)</label>
+              <input type="number" id="interest-rate" min="1" max="20" step="0.1" value="5.5">
+            </div>
+            <div class="result">
+              <h4>Estimated Monthly Payment:</h4>
+              <div class="payment-amount" id="payment-amount">$4,774</div>
+              <button class="cta-btn">Apply Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="business-testimonials">
+      <div class="container">
+        <h2>Success Stories</h2>
+        <p class="section-subtitle">Hear from businesses we've helped grow</p>
+        
+        <div class="testimonial-cards">
+          <div class="testimonial">
+            <div class="quote">
+              <i class="fas fa-quote-left"></i>
+              <p>Frost Bank's business checking account and merchant services helped streamline our retail operations and reduced our payment processing costs by 30%.</p>
+            </div>
+            <div class="author">
+          
+              <div>
+                <h4>Sarah Benson</h4>
+                <p>Owner, CEO. Urban Bourtique</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="testimonial">
+            <div class="quote">
+              <i class="fas fa-quote-left"></i>
+              <p>Their equipment financing allowed us to upgrade our manufacturing facility, increasing our production capacity by 40% in just six months.</p>
+              <div class="author">
+               <div>
+                <h4>Michael Porter</h4> 
+              <p>Business owner</p>
+              </div>
+            </div>
+          </div>
+  
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="business-cta">
+      <div class="container">
+        <h2>Ready to Grow Your Business?</h2>
+        <p>Our dedicated business bankers are ready to help you find the right financial solutions.</p>
+        <div class="cta-buttons">
+          <a href="contact.html" class="cta-btn">Contact Us</a>
+    
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-info">
+        <div class="logo">Frosst<span>Bank</span></div>
+        <p>Building relationships that last since 1868.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+         
+        </div>
+      </div>
+      <div class="footer-links">
+       
+      
+      </div>
+    </div>
+    <div class="copyright">
+      <div class="container">
+        <p>&copy; 2025 Frosst Bank. All rights reserved. Member FDIC. Equal Housing Lender.</p>
+      </div>
+    </div>
+  </footer>
+    <!-- Floating Chat Button -->
+  <div class="floating-chat-container" id="floatingChatContainer">
+    <button class="floating-chat-btn" id="floatingChatBtn" title="Start Chat">
+      <i class="fas fa-comments"></i>
+      <span class="chat-label">Chat with us</span>
+    </button>
+  </div>
+
+  <!-- Floating Chat Widget -->
+  <div class="floating-chat-widget" id="floatingChatWidget" style="display: none;">
+    <div class="chat-widget-header">
+      <div class="chat-widget-title">
+        <i class="fas fa-headset"></i>
+        <span>Live Support</span>
+      </div>
+      <button class="chat-widget-close" id="chatWidgetClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="chat-widget-body">
+      <div class="chat-widget-messages" id="chatWidgetMessages">
+        <div class="chat-widget-message bot">
+          <div class="message-avatar">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="message-content">
+            <div class="message-text">Hi there! 👋 How can we help you today?</div>
+            <div class="message-time">Just now</div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-widget-input-container">
+        <input type="text" id="chatWidgetInput" placeholder="Type a message..." />
+        <button id="chatWidgetSend">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Socket.io for chat -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="businesspage.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

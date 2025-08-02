@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Frosst Bank Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="header-content">
+      <div class="logo-section">
+        <img src="frosstlogo.jpg" alt="Frosst Bank" class="bank-logo">
+        <h1 class="bank-name">Frosst<span>Bank</span></h1>
+      </div>
+      <div class="user-section">
+        <div class="user-info">
+          <div class="user-avatar">
+            <img id="userProfilePic" src="https://via.placeholder.com/40" alt="Profile" />
+            <div class="status-indicator"></div>
+          </div>
+          <div class="user-details">
+            <span class="user-name" id="userName">John Doe</span>
+            <span class="user-account" id="userAccount">Account: 16855894866</span>
+          </div>
+        </div>
+        <button class="notification-btn">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge">3</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="dashboard-main">
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+      <div class="welcome-content">
+        <h2 class="welcome-title" id="welcomeTitle">Welcome back, John! 👋</h2>
+        <p class="welcome-subtitle">Here's what's happening with your accounts today</p>
+      </div>
+      <div class="quick-stats">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-wallet"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Available Balance</span>
+            <span class="stat-value" id="userBalance">$0.00</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">This Month</span>
+            <span class="stat-value">+$1,234.00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Banking Services -->
+    <section class="services-section">
+      <div class="section-header">
+        <h3 class="section-title">Banking Services</h3>
+        <p class="section-subtitle">Access your financial tools and services</p>
+    </div>
+
+      <div class="services-grid">
+        <a href="index.html" class="service-card primary">
+          <div class="card-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <div class="card-content">
+            <h4>Home</h4>
+            <p>Return to main page</p>
+          </div>
+          <div class="card-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <a href="activity.html" class="service-card">
+          <div class="card-icon">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+          <div class="card-content">
+            <h4>Activity</h4>
+            <p>View transaction history</p>
+          </div>
+          <div class="card-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <a href="cards.html" class="service-card">
+          <div class="card-icon">
+            <i class="fas fa-credit-card"></i>
+          </div>
+          <div class="card-content">
+            <h4>Cards</h4>
+            <p>Manage your cards</p>
+          </div>
+          <div class="card-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <a href="transfer.html" class="service-card">
+          <div class="card-icon">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <div class="card-content">
+            <h4>Transfer</h4>
+            <p>Send money securely</p>
+          </div>
+          <div class="card-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <a href="#" class="service-card">
+          <div class="card-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="card-content">
+            <h4>International Wire</h4>
+            <p>Global transfers</p>
+          </div>
+          <div class="card-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <a href="depositpage.html" class="service-card">
+          <div class="card-icon">
+            <i class="fas fa-money-bill-wave"></i>
+          </div>
+          <div class="card-content">
+            <h4>Deposit</h4>
+            <p>Add funds to account</p>
+          </div>
+          <div class="card-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <button class="service-card disabled" disabled title="Coming Soon">
+          <div class="card-icon">
+            <i class="fas fa-university"></i>
+          </div>
+          <div class="card-content">
+            <h4>Loans</h4>
+            <p>Apply for financing</p>
+          </div>
+          <div class="card-badge">Soon</div>
+        </button>
+
+        <a href="#" class="service-card">
+          <div class="card-icon">
+            <i class="fas fa-file-invoice-dollar"></i>
+          </div>
+          <div class="card-content">
+            <h4>IRS Refund</h4>
+            <p>Track tax refunds</p>
+          </div>
+          <div class="card-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <a href="#" class="service-card">
+          <div class="card-icon">
+            <i class="fas fa-cog"></i>
+          </div>
+          <div class="card-content">
+            <h4>Settings</h4>
+            <p>Account preferences</p>
+          </div>
+          <div class="card-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <a href="contact.html" class="service-card">
+          <div class="card-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <div class="card-content">
+            <h4>Support</h4>
+            <p>Get help & contact us</p>
+          </div>
+          <div class="card-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <a href="#" class="service-card" onclick="toggleChat(); return false;">
+          <div class="card-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="card-content">
+            <h4>Live Chat</h4>
+            <p>Chat with admin instantly</p>
+          </div>
+          <div class="card-arrow">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </a>
+
+        <a href="index.html" class="service-card logout">
+          <div class="card-icon">
+            <i class="fas fa-sign-out-alt"></i>
+          </div>
+          <div class="card-content">
+            <h4>Logout</h4>
+            <p>Sign out securely</p>
+          </div>
+          <div class="card-arrow">
+            <i class="fas fa-chevron-right"></i>
+    </div>
+        </a>
+  </div>
+    </section>
+  </main>
+
+  <!-- Live Chat -->
+  <div class="chat-container" id="chat-container">
+    <div class="chat-header" onclick="toggleChat()">
+      <div class="chat-header-content">
+        <div class="chat-avatar">
+          <i class="fas fa-comments"></i>
+        </div>
+        <div class="chat-info">
+          <span class="chat-title">💬 Chat with Admin</span>
+          <span id="chat-status" class="chat-status">🟢 Online - Click to start!</span>
+        </div>
+      </div>
+      <div class="chat-toggle">
+        <i class="fas fa-chevron-up" id="chat-toggle-icon"></i>
+      </div>
+    </div>
+    <div class="chat-box" id="chat-box" style="display: none;">
+      <div class="chat-messages" id="chat-messages">
+        <div class="bot-message">
+          <div class="message-avatar">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="message-content">
+            <div class="message-text">👋 Welcome! Click the header above to start chatting with our admin team!</div>
+            <div class="message-time">Just now</div>
+          </div>
+        </div>
+      </div>
+      <div id="typing-indicator" class="typing-indicator"></div>
+      <div class="chat-input-container">
+      <input
+        id="chat-input"
+        class="chat-input"
+        type="text"
+          placeholder="Type your message here to chat with admin..."
+        onkeydown="handleChat(event)" />
+        <button class="chat-send-btn">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

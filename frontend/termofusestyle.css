@@ -1,0 +1,205 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+.terms-header {
+    background-color: #b1c5d8;
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.bank-logo {
+    width: 50px;
+    height: 50px;
+}
+
+.terms-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color:#003366
+}
+.terms-header span{
+    color:coral
+}
+.term-
+.header-nav {
+    display: flex;
+    gap: 25px;
+    margin-top: 15px;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+    padding: 15px 0;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.breadcrumbs a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content Styles */
+.terms-container {
+    padding: 30px 0 50px;
+}
+
+.terms-content {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+}
+
+.terms-content h1 {
+    color: #003366;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.last-updated {
+    color: #6c757d;
+    font-size: 14px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e1e5eb;
+}
+
+/* Terms Sections */
+.terms-section {
+    margin-bottom: 30px;
+}
+
+.terms-section h2 {
+    color: #003366;
+    font-size: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.terms-section p {
+    margin-bottom: 15px;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.terms-section ul {
+    margin: 15px 0 15px 30px;
+}
+
+.terms-section li {
+    margin-bottom: 8px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+address {
+    font-style: normal;
+    margin-top: 15px;
+    line-height: 1.7;
+}
+
+/* Footer Styles */
+.terms-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #e1e5eb;
+    padding: 25px 0;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: #0056b3;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    text-align: center;
+    font-size: 13px;
+    color: #6c757d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .terms-content {
+        padding: 25px;
+    }
+    
+    .terms-content h1 {
+        font-size: 26px;
+    }
+    
+    .terms-section h2 {
+        font-size: 18px;
+    }
+    
+    .header-nav {
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .terms-content {
+        padding: 20px;
+    }
+    
+    .terms-section ul {
+        margin-left: 20px;
+    }
+}

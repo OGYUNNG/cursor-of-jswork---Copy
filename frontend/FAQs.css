@@ -1,0 +1,444 @@
+/* ========== NAVBAR STYLES ========== */
+:root {
+  --primary-blue: #002244;
+  --accent-orange: #FF6B35;
+  --white: #FFFFFF;
+  --light-gray: #F8F9FA;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Base Navbar Styles */
+.navbar {
+  background-color: var(--white);
+  box-shadow: var(--shadow-md);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  padding: 0.5rem 0;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Logo Styles */
+.logo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.logo span {
+  color: var(--accent-orange);
+}
+
+.logo:hover {
+  opacity: 0.9;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--primary-blue);
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: var(--transition);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-orange);
+  transition: var(--transition);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links a.active {
+  color: var(--accent-orange);
+  font-weight: 600;
+}
+
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* Login Button */
+.login-btn {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-left: 1rem;
+}
+
+.login-btn:hover {
+  background-color: var(--accent-orange);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--primary-blue);
+  transition: var(--transition);
+}
+
+/* Mobile Menu Styles */
+@media (max-width: 992px) {
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--white);
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+  }
+  
+  .nav-links.active {
+    right: 0;
+  }
+  
+  .menu-toggle {
+    display: flex;
+  }
+  
+  .menu-toggle.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .menu-toggle.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+  
+  .no-scroll {
+    overflow: hidden;
+  }
+  
+  .login-btn {
+    margin-left: auto;
+    margin-right: 1rem;
+  }
+}
+
+/* Animation for mobile menu links */
+@keyframes fadeInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.nav-links.active a {
+  animation: fadeInFromRight 0.4s ease forwards;
+}
+
+.nav-links.active a:nth-child(1) { animation-delay: 0.1s; }
+.nav-links.active a:nth-child(2) { animation-delay: 0.2s; }
+.nav-links.active a:nth-child(3) { animation-delay: 0.3s; }
+.nav-links.active a:nth-child(4) { animation-delay: 0.4s; }
+/* ========== BUSINESS BANKING PROFESSIONAL STYLES ========== */
+/* Color Variables */
+/* ========== FAQ PAGE STYLES ========== */
+.faq-hero {
+  background: linear-gradient(135deg, rgba(0, 34, 68, 0.9) 0%, rgba(0, 68, 107, 0.9) 100%), 
+              url('images/faq-hero.jpg') no-repeat center center/cover;
+  color: white;
+  padding: 8rem 0 4rem;
+  text-align: center;
+  margin-top: 70px; /* Account for fixed navbar */
+}
+
+.faq-hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+}
+
+.faq-hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.faq-container {
+  padding: 4rem 0;
+}
+
+.faq-search {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.faq-search input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+}
+
+.faq-search button {
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 0 1.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.faq-search button:hover {
+  background: var(--accent-orange);
+}
+
+.faq-categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+}
+
+.category-btn {
+  background: var(--light-gray);
+  color: var(--primary-blue);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.category-btn:hover, .category-btn.active {
+  background: var(--primary-blue);
+  color: white;
+}
+
+.faq-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.faq-item:hover {
+  border-color: var(--accent-orange);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 1.5rem;
+  text-align: left;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--primary-blue);
+  font-size: 1.1rem;
+}
+
+.faq-question i {
+  transition: var(--transition);
+}
+
+.faq-item.active .faq-question i {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 1.5rem;
+  background: var(--light-gray);
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.faq-answer p, .faq-answer ol, .faq-answer ul {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.faq-answer ol, .faq-answer ul {
+  padding-left: 1.5rem;
+}
+
+.faq-answer li {
+  margin-bottom: 0.5rem;
+}
+
+.faq-contact {
+  text-align: center;
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.faq-contact h3 {
+  color: var(--primary-blue);
+  margin-bottom: 1rem;
+}
+
+.faq-contact p {
+  color: var(--text-light);
+  margin-bottom: 2rem;
+}
+
+.contact-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-blue);
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.contact-btn:hover {
+  background: var(--accent-orange);
+  transform: translateY(-2px);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .faq-hero {
+    padding: 6rem 0 3rem;
+    margin-top: 60px;
+  }
+  
+  .faq-hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .faq-search {
+    margin-bottom: 2rem;
+  }
+  
+  .faq-categories {
+    margin-bottom: 2rem;
+  }
+  
+  .faq-question {
+    padding: 1.25rem;
+  }
+  
+  .contact-options {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact-btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .faq-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .faq-hero p {
+    font-size: 1rem;
+  }
+  
+  .category-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .faq-question {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+}

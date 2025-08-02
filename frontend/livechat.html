@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Chat - Frosst Bank</title>
+  <link rel="stylesheet" href="livechat.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      margin: 0;
+      background: rgb(249, 251, 255);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 600px;
+    }
+    .chat-container {
+      width: 400px;
+      max-width: 100%;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header {
+      background-color: #4a5568;
+      color: white;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .chat-box {
+      padding: 16px;
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #f9fafb;
+    }
+    .message {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      line-height: 1.4;
+      display: inline-block;
+    }
+    .message.user {
+      align-self: flex-end;
+      background: #3f51b5;
+      color: white;
+    }
+    .message.admin {
+      align-self: flex-start;
+      background: #e2e8f0;
+      color: #2d3748;
+    }
+    .chat-input {
+      display: flex;
+      padding: 12px;
+      border-top: 1px solid #ddd;
+    }
+    .chat-input input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+    .chat-input button {
+      padding: 10px 16px;
+      border-radius: 20px;
+      border: none;
+      background: #3f51b5;
+      color: white;
+      cursor: pointer;
+    }
+    .chat-input button:hover {
+      background: #2c3a9f;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">Live Chat Support</div>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="chat-input">
+      <input type="text" id="message" placeholder="Type your message..." />
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // Socket.io connection
+    let socket;
+    let currentUser;
+
+    // Initialize Socket.io connection
+    function initializeSocket() {
+      // Get user info from localStorage (set during login)
+      const userInfo = localStorage.getItem('userInfo');
+      if (!userInfo) {
+        console.log('No user info found, using fallback chat');
+        return;
+      }
+
+      currentUser = JSON.parse(userInfo);
+      
+      // Connect to Socket.io server
+      socket = io('http://localhost:4000', {
+        auth: {
+          token: localStorage.getItem('jwtToken')
+        }
+      });
+
+      // Join user's personal room
+      socket.emit('join', { userId: currentUser._id });
+
+      // Listen for incoming messages
+      socket.on('message', (message) => {
+        if (message.from !== currentUser._id) {
+          addMessage(message.content, 'admin');
+        }
+      });
+
+      // Listen for connection status
+      socket.on('connect', () => {
+        console.log('Connected to chat server');
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Disconnected from chat server');
+      });
+
+      socket.on('connect_error', (error) => {
+        console.error('Connection error:', error);
+        console.log('Falling back to localStorage chat');
+      });
+    }
+
+    // Initialize chat session
+    function initializeChat() {
+      // Send notification to admin via Socket.io
+      if (socket && socket.connected) {
+        socket.emit('chatNotification', {
+          type: 'livechat',
+          userId: currentUser._id,
+          userName: currentUser.name,
+          userAccount: currentUser.account,
+          timestamp: new Date().toISOString()
+        });
+      } else {
+        // Fallback to localStorage
+        const chatSession = {
+          id: 'livechat-' + Date.now(),
+          source: 'livechat',
+          timestamp: new Date().toISOString(),
+          status: 'active',
+          user: currentUser.name,
+          account: currentUser.account
+        };
+        localStorage.setItem('currentLiveChat', JSON.stringify(chatSession));
+        localStorage.setItem('newLiveChat', 'true');
+      }
+    }
+
+    // Send message to admin
+    function sendMessageToAdmin(message) {
+      // Send message via Socket.io
+      if (socket && socket.connected) {
+        socket.emit('message', {
+          from: currentUser._id,
+          to: 'admin',
+          content: message,
+          timestamp: new Date().toISOString()
+        });
+      } else {
+        // Fallback to localStorage
+        const chatMessages = JSON.parse(localStorage.getItem('liveChatMessages') || '[]');
+        chatMessages.push({
+          from: 'user',
+          message: message,
+          timestamp: new Date().toISOString(),
+          source: 'livechat'
+        });
+        localStorage.setItem('liveChatMessages', JSON.stringify(chatMessages));
+        localStorage.setItem('newLiveChatMessage', 'true');
+      }
+    }
+
+    // Check for admin responses (fallback)
+    function checkForAdminResponse() {
+      const adminResponse = localStorage.getItem('adminResponseToLiveChat');
+      if (adminResponse) {
+        const response = JSON.parse(adminResponse);
+        addMessage(response.message, 'admin');
+        localStorage.removeItem('adminResponseToLiveChat');
+      }
+    }
+
+    // Add message to chat
+    function addMessage(text, sender) {
+      const chatBox = document.getElementById('chat-box');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${sender}-message`;
+      
+      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      let senderName = 'You';
+      if (sender === 'admin') senderName = 'Support Agent';
+      if (sender === 'system') senderName = 'System';
+
+      messageDiv.innerHTML = `
+        <div class="message-content">
+          <strong>${senderName}:</strong> ${text}
+        </div>
+        <div class="message-time">${currentTime}</div>
+      `;
+      
+      chatBox.appendChild(messageDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Handle send message
+    function sendMessage() {
+      const messageInput = document.getElementById('message');
+      const message = messageInput.value.trim();
+      
+      if (message === '') return;
+
+      // Add user message to chat
+      addMessage(message, 'user');
+
+      // Send to admin
+      sendMessageToAdmin(message);
+
+      messageInput.value = '';
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeSocket();
+      
+      // Initialize chat after a short delay to ensure socket is connected
+      setTimeout(() => {
+        initializeChat();
+      }, 1000);
+
+      // Check for admin responses every 2 seconds (fallback)
+      setInterval(checkForAdminResponse, 2000);
+
+      // Handle Enter key
+      const messageInput = document.getElementById('message');
+      if (messageInput) {
+        messageInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            sendMessage();
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

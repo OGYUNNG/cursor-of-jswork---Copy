@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Frosst Bank</title>
+    <link rel="stylesheet" href="signupstyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <style>
+      /* Live Chat Popup Styles */
+      .live-chat-popup {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 350px;
+        height: 450px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+        z-index: 1000;
+      }
+
+      .chat-header {
+        background: #4B0082;
+        color: white;
+        padding: 15px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .chat-messages {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        background: #f9f9f9;
+      }
+
+      .message {
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        max-width: 80%;
+      }
+
+      .message.user {
+        background: #4B0082;
+        color: white;
+        margin-left: auto;
+      }
+
+      .message.admin {
+        background: white;
+        border: 1px solid #ddd;
+      }
+
+      .message.system {
+        background: #e3f2fd;
+        border: 1px solid #2196f3;
+        text-align: center;
+        max-width: 100%;
+      }
+
+      .message-content {
+        margin-bottom: 4px;
+      }
+
+      .message-time {
+        font-size: 11px;
+        opacity: 0.7;
+      }
+
+      .chat-input-container {
+        padding: 15px;
+        border-top: 1px solid #ddd;
+        display: flex;
+        gap: 10px;
+      }
+
+      .chat-input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        outline: none;
+      }
+
+      .send-btn {
+        background: #4B0082;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+
+      .send-btn:hover {
+        background: #3a0066;
+      }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-left">
+            <div class="bank-logo">
+                <img src="frosstlogo.png" alt="FrosstBank" width="50px"> <h1>Frosst<span>Bank</span></h1>
+            </div>
+            <div class="left-content">
+                <h1>Join FrosstBank Today</h1>
+                <ul class="benefits-list">
+                    <li><i class="fas fa-check-circle"></i> 24/7 Online Banking Access</li>
+                    <li><i class="fas fa-check-circle"></i> Competitive Interest Rates</li>
+                    <li><i class="fas fa-check-circle"></i> FDIC Insured Up To $250,000</li>
+                    <li><i class="fas fa-check-circle"></i> No Monthly Maintenance Fees</li>
+                    <li><i class="fas fa-check-circle"></i> Mobile Check Deposit</li>
+                </ul>
+                <div class="security-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>256-bit SSL Encryption</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="signup-right">
+            <div class="signup-form-container">
+                <div class="form-header">
+                    <h2>Create Your Account</h2>
+                    <p>Already have an account? <a href="login.html">Log in</a></p>
+                </div>
+
+                <form id="signupForm" class="signup-form">
+                    <div class="form-step active" id="step1">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" required>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <a href="index.html" class="btn-back">Back</a>
+                            <button type="submit" class="btn-submit">Complete Sign Up</button>
+                        </div>
+                    </div>
+
+                  
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <p>Need help? Contact us <a href="contact.html">here</a> or visit a branch near you.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Chat Popup -->
+    <div id="liveChatPopup" class="live-chat-popup" style="display: none;">
+      <div class="chat-header">
+        <span>Live Support Chat</span>
+        <button onclick="closeLiveChatPopup()" class="close-btn">&times;</button>
+      </div>
+      <div id="chatMessages" class="chat-messages">
+        <div class="message system">
+          <div class="message-content">
+            <strong>Support:</strong> Hi there! 👋 I see you're trying to sign up. How can I help you today?
+          </div>
+          <div class="message-time">Just now</div>
+        </div>
+      </div>
+      <div class="chat-input-container">
+        <input type="text" id="chatInput" placeholder="Type your message..." class="chat-input">
+        <button onclick="sendMessage()" class="send-btn">Send</button>
+        </div>
+    </div>
+
+    <!-- JavaScript to block signups -->
+   <script>
+      // Socket.io connection
+      let socket;
+      let currentUser = null; // For sign-up, we don't have a user yet
+
+      // Initialize Socket.io connection (for anonymous chat)
+      function initializeSocket() {
+        // Connect to Socket.io server without authentication
+        socket = io('http://localhost:4000');
+
+        // Listen for incoming messages
+        socket.on('message', (message) => {
+          addMessage(message.content, 'admin');
+        });
+
+        // Listen for connection status
+        socket.on('connect', () => {
+          console.log('Connected to chat server');
+        });
+
+        socket.on('disconnect', () => {
+          console.log('Disconnected from chat server');
+        });
+
+        socket.on('connect_error', (error) => {
+          console.error('Connection error:', error);
+          console.log('Falling back to localStorage chat');
+        });
+      }
+
+      // Initialize on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        initializeSocket();
+      });
+
+      function openLiveChatPopup() {
+        const popup = document.getElementById('liveChatPopup');
+        popup.style.display = 'flex';
+        
+        // Initialize chat session
+        initializeChat();
+      }
+
+      function closeLiveChatPopup() {
+        const popup = document.getElementById('liveChatPopup');
+        popup.style.display = 'none';
+        
+        // Clear chat session from localStorage
+        localStorage.removeItem('currentSignupChat');
+        localStorage.removeItem('signupChatMessages');
+      }
+
+      function initializeChat() {
+        // Send notification to admin via Socket.io
+        if (socket && socket.connected) {
+          socket.emit('chatNotification', {
+            type: 'signup',
+            userId: 'anonymous',
+            userName: 'Anonymous User',
+            userAccount: 'N/A',
+            timestamp: new Date().toISOString()
+          });
+        } else {
+          // Fallback to localStorage
+          const chatSession = {
+            id: 'signup-' + Date.now(),
+            source: 'signup',
+            timestamp: new Date().toISOString(),
+            status: 'active',
+            user: 'Anonymous User',
+            account: 'N/A'
+          };
+          localStorage.setItem('currentSignupChat', JSON.stringify(chatSession));
+          localStorage.setItem('newSignupChat', 'true');
+        }
+      }
+
+      function sendMessageToAdmin(message) {
+        // Send message via Socket.io
+        if (socket && socket.connected) {
+          socket.emit('message', {
+            from: 'anonymous',
+            to: 'admin',
+            content: message,
+            timestamp: new Date().toISOString()
+          });
+        } else {
+          // Fallback to localStorage
+          const chatMessages = JSON.parse(localStorage.getItem('signupChatMessages') || '[]');
+          chatMessages.push({
+            from: 'user',
+            message: message,
+            timestamp: new Date().toISOString(),
+            source: 'signup'
+          });
+          localStorage.setItem('signupChatMessages', JSON.stringify(chatMessages));
+          localStorage.setItem('newSignupMessage', 'true');
+        }
+      }
+
+      function checkForAdminResponse() {
+        const adminResponse = localStorage.getItem('adminResponseToSignup');
+        if (adminResponse) {
+          const response = JSON.parse(adminResponse);
+          addMessage(response.message, 'admin');
+          localStorage.removeItem('adminResponseToSignup');
+        }
+      }
+
+      function addMessage(text, sender) {
+        const chatMessages = document.getElementById('chatMessages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}`;
+        
+        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        let senderName = 'You';
+        if (sender === 'admin') senderName = 'Support Agent';
+        if (sender === 'system') senderName = 'System';
+
+        messageDiv.innerHTML = `
+          <div class="message-content">
+            <strong>${senderName}:</strong> ${text}
+          </div>
+          <div class="message-time">${currentTime}</div>
+        `;
+        
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const message = input.value.trim();
+        
+        if (message === '') return;
+
+        // Add user message to chat
+        addMessage(message, 'user');
+
+        // Send to admin
+        sendMessageToAdmin(message);
+
+        input.value = '';
+      }
+
+      // Check for admin responses every 2 seconds (fallback)
+      setInterval(checkForAdminResponse, 2000);
+
+      // Handle Enter key in chat
+      document.addEventListener('DOMContentLoaded', function() {
+        const chatInput = document.getElementById('chatInput');
+        if (chatInput) {
+          chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+              sendMessage();
+            }
+          });
+        }
+
+        // Handle signup form submission
+        const signupForm = document.getElementById('signupForm');
+        if (signupForm) {
+          signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+        // Show alert
+        alert('Sign-ups are currently unavailable. Please contact support.');
+
+        // Show live chat popup
+        openLiveChatPopup();
+    });
+        }
+      });
+</script>
+
+</body>
+</html>

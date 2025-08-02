@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Database Test</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #1a202c;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+        }
+        .header p {
+            color: #64748b;
+        }
+        .test-section {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .test-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .test-section h3::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            box-sizing: border-box;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .user-data {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .user-data h4 {
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+        }
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .data-item:last-child {
+            border-bottom: none;
+        }
+        .data-label {
+            font-weight: 500;
+            color: #64748b;
+        }
+        .data-value {
+            font-weight: 600;
+            color: #1a202c;
+        }
+        .account-preview {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .account-preview:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+        .account-preview.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f0f4ff, #e6f0ff);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+        }
+        .account-type {
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 0.25rem;
+        }
+        .account-number {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        .account-balance {
+            font-weight: 600;
+            color: #059669;
+            font-size: 1.125rem;
+        }
+        .actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 Transfer Database Test</h1>
+            <p>Test the transfer page's ability to fetch user data from PostgreSQL database</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Test User Data Fetching</h3>
+            <div class="form-group">
+                <label for="userId">User ID (from localStorage or enter manually):</label>
+                <input type="text" id="userId" class="form-control" placeholder="Enter user ID">
+            </div>
+            <div class="actions">
+                <button onclick="getUserIdFromStorage()" class="btn btn-outline">Get from Storage</button>
+                <button onclick="fetchUserData()" class="btn btn-primary">Fetch User Data</button>
+                <button onclick="clearResults()" class="btn btn-outline">Clear Results</button>
+            </div>
+            <div id="status" class="status" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>User Data Results</h3>
+            <div id="userData" class="user-data" style="display: none;">
+                <h4>User Information</h4>
+                <div id="userInfo"></div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Account Preview (Transfer Page Style)</h3>
+            <div id="accountPreview" style="display: none;">
+                <div class="account-preview active">
+                    <div class="account-type">
+                        <i class="fas fa-university"></i>
+                        Primary Checking
+                    </div>
+                    <div class="account-number" id="checkingNumber">•••• 4567</div>
+                    <div class="account-balance" id="checkingBalance">$0.00</div>
+                </div>
+                <div class="account-preview">
+                    <div class="account-type">
+                        <i class="fas fa-piggy-bank"></i>
+                        Savings
+                    </div>
+                    <div class="account-number">•••• 8910</div>
+                    <div class="account-balance" id="savingsBalance">$0.00</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test Transfer Page Integration</h3>
+            <div class="actions">
+                <button onclick="openTransferPage()" class="btn btn-primary">Open Transfer Page</button>
+                <button onclick="simulateTransferFlow()" class="btn btn-outline">Simulate Transfer Flow</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3100';
+
+        // Get user ID from localStorage
+        function getUserIdFromStorage() {
+            const userInfo = localStorage.getItem('userInfo');
+            if (userInfo) {
+                const user = JSON.parse(userInfo);
+                const userId = user._id || user.id;
+                document.getElementById('userId').value = userId;
+                showStatus(`User ID loaded from storage: ${userId}`, 'success');
+            } else {
+                showStatus('No user info found in localStorage. Please log in first.', 'error');
+            }
+        }
+
+        // Fetch user data from database
+        async function fetchUserData() {
+            const userId = document.getElementById('userId').value.trim();
+            
+            if (!userId) {
+                showStatus('Please enter a user ID', 'error');
+                return;
+            }
+
+            try {
+                showStatus('Fetching user data...', 'info');
+                
+                const response = await fetch(`${API_BASE}/users/${userId}`);
+                
+                if (response.ok) {
+                    const userData = await response.json();
+                    displayUserData(userData);
+                    showStatus('User data fetched successfully!', 'success');
+                } else {
+                    const error = await response.json();
+                    showStatus(`Error: ${error.error || 'Failed to fetch user data'}`, 'error');
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                showStatus('Network error: Could not connect to server', 'error');
+            }
+        }
+
+        // Display user data
+        function displayUserData(userData) {
+            const userInfoDiv = document.getElementById('userInfo');
+            const userDataDiv = document.getElementById('userData');
+            const accountPreviewDiv = document.getElementById('accountPreview');
+            
+            // Display user information
+            userInfoDiv.innerHTML = `
+                <div class="data-item">
+                    <span class="data-label">Name:</span>
+                    <span class="data-value">${userData.name || 'N/A'}</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Username:</span>
+                    <span class="data-value">${userData.username || 'N/A'}</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Email:</span>
+                    <span class="data-value">${userData.email || 'N/A'}</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Account Number:</span>
+                    <span class="data-value">${userData.account_number || 'N/A'}</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Account Balance:</span>
+                    <span class="data-value">$${formatCurrency(userData.account_balance || 0)}</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Role:</span>
+                    <span class="data-value">${userData.role || 'N/A'}</span>
+                </div>
+            `;
+            
+            userDataDiv.style.display = 'block';
+            
+            // Update account preview
+            const checkingNumber = document.getElementById('checkingNumber');
+            const checkingBalance = document.getElementById('checkingBalance');
+            const savingsBalance = document.getElementById('savingsBalance');
+            
+            if (checkingNumber) {
+                checkingNumber.textContent = userData.account_number || '•••• 4567';
+            }
+            if (checkingBalance) {
+                checkingBalance.textContent = `$${formatCurrency(userData.account_balance || 0)}`;
+            }
+            if (savingsBalance) {
+                const savingsAmount = (userData.account_balance || 0) * 0.3;
+                savingsBalance.textContent = `$${formatCurrency(savingsAmount)}`;
+            }
+            
+            accountPreviewDiv.style.display = 'block';
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+            return parseFloat(amount || 0).toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        // Show status message
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+            statusDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Clear results
+        function clearResults() {
+            document.getElementById('userData').style.display = 'none';
+            document.getElementById('accountPreview').style.display = 'none';
+            document.getElementById('status').style.display = 'none';
+        }
+
+        // Open transfer page
+        function openTransferPage() {
+            window.open('transfer.html', '_blank');
+        }
+
+        // Simulate transfer flow
+        function simulateTransferFlow() {
+            const userInfo = localStorage.getItem('userInfo');
+            if (!userInfo) {
+                showStatus('Please log in first to simulate transfer flow', 'error');
+                return;
+            }
+            
+            showStatus('Opening transfer page with user data...', 'info');
+            setTimeout(() => {
+                window.open('transfer.html', '_blank');
+            }, 1000);
+        }
+
+        // Auto-load user ID from storage on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            getUserIdFromStorage();
+        });
+
+        console.log('Transfer database test page loaded');
+    </script>
+</body>
+</html> 

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User-Initiated Chat Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .chat-container {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+        .chat-header {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-box {
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+        .chat-input-container {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #ccc;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .chat-send-btn {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .user-message {
+            background: #007bff;
+            color: white;
+            margin-left: 20%;
+        }
+        .bot-message {
+            background: white;
+            border: 1px solid #ccc;
+            margin-right: 20%;
+        }
+        .status {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        .disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .test-info {
+            background: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .test-steps {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 User-Initiated Chat Test</h1>
+    
+    <div class="test-info">
+        <h3>Test Purpose</h3>
+        <p>This page tests the user-initiated chat functionality. Users should be able to start conversations with admin without waiting for admin to initiate.</p>
+    </div>
+    
+    <div class="test-steps">
+        <h3>Test Steps</h3>
+        <ol>
+            <li>Click the chat header to open the chat</li>
+            <li>Verify that a welcome message appears automatically</li>
+            <li>Type a message and send it</li>
+            <li>Check that you get immediate acknowledgment</li>
+            <li>Verify the conversation flow works properly</li>
+        </ol>
+    </div>
+    
+    <div id="status" class="status disconnected">
+        ❌ Disconnected from chat server
+    </div>
+    
+    <div class="chat-container">
+        <div class="chat-header" onclick="toggleChat()">
+            💬 Chat with Admin - Click to Start!
+            <span id="connection-status">🟢 Online</span>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <div class="chat-messages" id="chat-messages">
+                <div class="bot-message">
+                    <div class="message-text">👋 Welcome to the user-initiated chat test! Click the header above to start chatting with admin.</div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Type your message to chat with admin..." onkeydown="handleChat(event)">
+                <button class="chat-send-btn" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        // Test user data
+        const testUser = {
+            id: 'test-user-init-' + Date.now(),
+            name: 'Test User (Initiation)',
+            role: 'user'
+        };
+
+        // Initialize Socket.io connection
+        const socket = io('http://localhost:3100');
+        
+        // DOM elements
+        const chatBox = document.getElementById('chat-box');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const statusDiv = document.getElementById('status');
+        const connectionStatus = document.getElementById('connection-status');
+
+        // Socket connection status
+        socket.on('connect', () => {
+            console.log('✅ Connected to chat server');
+            statusDiv.textContent = '✅ Connected to chat server';
+            statusDiv.className = 'status connected';
+            connectionStatus.textContent = '🟢 Online';
+            
+            // Register test user
+            socket.emit('register', {
+                role: 'user',
+                userId: testUser.id,
+                name: testUser.name,
+            });
+        });
+
+        socket.on('disconnect', () => {
+            console.log('❌ Disconnected from chat server');
+            statusDiv.textContent = '❌ Disconnected from chat server';
+            statusDiv.className = 'status disconnected';
+            connectionStatus.textContent = '🔴 Offline';
+        });
+
+        // Handle incoming messages from admin
+        socket.on('admin-reply', data => {
+            console.log('📨 Received admin reply:', data);
+            if (data && data.message) {
+                addMessage(data.message, "admin");
+            }
+        });
+
+        // Handle admin typing indicator
+        socket.on('admin-typing', data => {
+            console.log('Admin typing:', data);
+            showTypingIndicator(data.isTyping);
+        });
+
+        // Send message when Enter is pressed
+        function handleChat(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
+
+        // Send message function
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message === "") return;
+
+            console.log('Sending message:', message);
+            addMessage(message, "user");
+
+            // Send message to server for admin
+            socket.emit('user-message', {
+                message: message,
+                userId: testUser.id,
+                userName: testUser.name,
+                timestamp: new Date().toISOString()
+            });
+
+            chatInput.value = "";
+        }
+
+        // Append message to chat box
+        function addMessage(text, sender) {
+            const msg = document.createElement("div");
+            msg.className = `message ${sender}-message`;
+            
+            const time = new Date().toLocaleTimeString();
+            
+            msg.innerHTML = `
+                <div class="message-text">${text}</div>
+                <div class="message-time">${time}</div>
+            `;
+            
+            chatMessages.appendChild(msg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            console.log(`Added ${sender} message:`, text);
+        }
+
+        // Show typing indicator
+        function showTypingIndicator(isTyping) {
+            console.log('Typing indicator:', isTyping);
+        }
+
+        // Toggle chat visibility
+        function toggleChat() {
+            const isOpen = chatBox.style.display !== 'none';
+            
+            if (isOpen) {
+                chatBox.style.display = 'none';
+            } else {
+                chatBox.style.display = 'flex';
+                
+                // ✅ Add welcome message if chat is empty (except initial message)
+                const existingMessages = chatMessages.querySelectorAll('.message');
+                if (existingMessages.length <= 1) {
+                    addMessage("Hi! I'd like to start a conversation with an admin. Can you help me?", "user");
+                    
+                    // Send the initial message to admin
+                    socket.emit('user-message', {
+                        message: "Hi! I'd like to start a conversation with an admin. Can you help me?",
+                        userId: testUser.id,
+                        userName: testUser.name,
+                        timestamp: new Date().toISOString()
+                    });
+                }
+            }
+        }
+
+        // Add typing event listeners
+        chatInput.addEventListener('input', () => {
+            socket.emit('typing', {
+                userId: testUser.id,
+                isTyping: true
+            });
+            
+            setTimeout(() => {
+                socket.emit('typing', {
+                    userId: testUser.id,
+                    isTyping: false
+                });
+            }, 1000);
+        });
+
+        console.log('User-initiated chat test page loaded');
+    </script>
+</body>
+</html> 

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - Frosst Bank</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Mobile Menu Button -->
+  <div class="lg:hidden fixed top-4 left-4 z-50">
+    <button id="mobileMenuBtn" class="bg-indigo-900 text-white p-2 rounded-md">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <aside id="sidebar" class="fixed lg:relative inset-y-0 left-0 z-40 w-64 bg-indigo-900 text-white p-5 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-xl lg:text-2xl font-bold">Bank Admin</h2>
+        <button id="closeSidebar" class="lg:hidden text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-4">
+        <a href="#create" class="hover:text-indigo-300 py-2 px-3 rounded transition-colors">Create User</a>
+        <a href="#users" class="hover:text-indigo-300 py-2 px-3 rounded transition-colors">Manage Users</a>
+        <a href="#chat" class="hover:text-indigo-300 relative py-2 px-3 rounded transition-colors">
+          Live Chat
+          <span id="chatNotification" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">1</span>
+        </a>
+        <a href="#transfers" class="hover:text-indigo-300 relative py-2 px-3 rounded transition-colors">
+          Transfer Requests
+          <span id="transferNotification" class="hidden absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">1</span>
+        </a>
+      </nav>
+      
+      <!-- Admin Info and Logout -->
+      <div class="mt-auto pt-8 border-t border-indigo-700">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center">
+            <span class="text-white font-bold">A</span>
+          </div>
+          <div>
+            <div class="text-sm font-medium">Admin User</div>
+            <div class="text-xs text-indigo-300">admin123@frosstbank.com</div>
+          </div>
+        </div>
+        <button onclick="logout()" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded text-sm transition-colors">
+          Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 lg:p-8 overflow-y-scroll lg:ml-0">
+      
+      <!-- Create User -->
+       <div id="message-box" class="text-center mb-4 text-sm font-semibold"></div>
+
+    <!-- Create User Form -->
+    <form id="create-user-form" class="bg-white p-4 lg:p-6 rounded shadow mb-8">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <input type="text" id="name" placeholder="Full Name" class="border p-2 rounded w-full" required />
+        <input type="text" id="username" placeholder="Username" class="border p-2 rounded w-full" required />
+        <input type="email" id="email" placeholder="Email Address" class="border p-2 rounded w-full" required />
+        <input type="password" id="password" placeholder="Password" class="border p-2 rounded w-full" required />
+        <select id="role" class="border p-2 rounded w-full" required>
+          <option value="">Select Role</option>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+        <div class="flex items-center gap-2">
+          <input type="file" id="profilePicture" accept="image/*" class="hidden" />
+          <button type="button" id="uploadBtn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <i class="fas fa-upload mr-2"></i>Upload Photo
+          </button>
+        </div>
+      </div>
+      
+      <!-- Profile Picture Preview -->
+      <div id="profilePreview" class="mt-4 hidden">
+        <div class="flex items-center gap-4">
+          <img id="previewImage" src="" alt="Profile Preview" class="w-16 h-16 rounded-full object-cover border-2 border-gray-300" />
+          <div>
+            <p class="text-sm text-gray-600">Profile picture selected</p>
+            <button type="button" id="removePhoto" class="text-red-600 text-sm hover:text-red-800">
+              Remove photo
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <button type="submit" class="mt-4 bg-green-600 text-white py-2 px-6 rounded hover:bg-green-700 w-full sm:w-auto">
+        <i class="fas fa-user-plus mr-2"></i>Create User
+      </button>
+    </form>
+
+    <!-- User List -->
+    <div id="user-list" class="bg-white p-4 lg:p-6 rounded shadow space-y-4">
+      <h2 class="text-lg lg:text-xl font-semibold text-gray-700 mb-4">Users</h2>
+      <!-- User rows will be appended here dynamically -->
+    </div>
+        <!-- Search and Filter Controls -->
+        <div class="bg-white p-4 rounded shadow mb-4">
+          <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
+            <div class="flex-1 w-full lg:min-w-64">
+              <input type="text" id="searchUsers" placeholder="Search by name, email, or account..." 
+                     class="w-full border p-2 rounded" onkeyup="filterUsers()">
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
+              <select id="sortUsers" class="border p-2 rounded" onchange="sortUsers()">
+                <option value="name">Sort by Name</option>
+                <option value="balance">Sort by Balance</option>
+                <option value="account">Sort by Account</option>
+              </select>
+              <button onclick="exportUsers()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                Export Users
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white shadow rounded overflow-hidden">
+          <table class="w-full">
+          <thead>
+            <tr class="bg-gray-100 text-left">
+              <th class="p-3">Photo</th>
+              <th class="p-3">Name</th>
+              <th class="p-3">Email</th>
+              <th class="p-3">Account</th>
+              <th class="p-3">Balance ($)</th>
+              <th class="p-3">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="userTable">
+            <!-- Dynamically filled -->
+          </tbody>
+        </table>
+          <div id="noUsersMessage" class="hidden p-8 text-center text-gray-500">
+            No users found matching your search criteria.
+          </div>
+        </div>
+        
+        <!-- User Statistics -->
+        <div class="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white p-4 rounded shadow">
+            <div class="text-lg lg:text-2xl font-bold text-blue-600" id="totalUsers">0</div>
+            <div class="text-xs lg:text-sm text-gray-600">Total Users</div>
+          </div>
+          <div class="bg-white p-4 rounded shadow">
+            <div class="text-lg lg:text-2xl font-bold text-green-600" id="totalBalance">$0.00</div>
+            <div class="text-xs lg:text-sm text-gray-600">Total Balance</div>
+          </div>
+          <div class="bg-white p-4 rounded shadow">
+            <div class="text-lg lg:text-2xl font-bold text-purple-600" id="avgBalance">$0.00</div>
+            <div class="text-xs lg:text-sm text-gray-600">Average Balance</div>
+          </div>
+          <div class="bg-white p-4 rounded shadow">
+            <div class="text-lg lg:text-2xl font-bold text-orange-600" id="highBalanceUsers">0</div>
+            <div class="text-xs lg:text-sm text-gray-600">Users > $10k</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transfer Requests -->
+      <section id="transfers" class="mb-10">
+        <h2 class="text-xl font-bold mb-4">Transfer Requests</h2>
+        <div class="bg-white rounded shadow p-6">
+          <div class="space-y-4" id="transferRequests">
+            <div class="border rounded p-4 bg-yellow-50">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-semibold">Transfer Request #TRX-2025-001</h3>
+                  <p class="text-sm text-gray-600">From: Primary Checking •••• 4567</p>
+                  <p class="text-sm text-gray-600">To: John Smith •••• 3456</p>
+                  <p class="text-sm text-gray-600">Amount: $500.00</p>
+                  <p class="text-sm text-gray-600">Status: Pending</p>
+                </div>
+                <div class="flex space-x-2">
+                  <button onclick="approveTransfer('TRX-2025-001')" class="bg-green-500 text-white px-3 py-1 rounded text-sm">Approve</button>
+                  <button onclick="rejectTransfer('TRX-2025-001')" class="bg-red-500 text-white px-3 py-1 rounded text-sm">Reject</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Chat -->
+      <section id="chat">
+        <h2 class="text-lg lg:text-xl font-bold mb-4">
+          Live Chat with Users
+          <span id="chat-status" class="ml-2 text-sm text-gray-500">● Connected</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+          <!-- Connected Users List -->
+          <div class="bg-white rounded shadow p-4">
+            <h3 class="text-base lg:text-lg font-semibold mb-4">Connected Users</h3>
+            <div id="connected-users" class="space-y-2 max-h-48 lg:max-h-64 overflow-y-auto">
+              <div class="text-gray-500 text-sm">No users connected</div>
+            </div>
+          </div>
+
+          <!-- Chat Messages -->
+          <div class="lg:col-span-2 bg-white rounded shadow p-4">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between mb-4 gap-2">
+              <h3 id="chat-header" class="text-base lg:text-lg font-semibold">Select a user to start chatting</h3>
+              <div id="typing-indicator" class="text-sm text-gray-500"></div>
+            </div>
+
+            <div id="admin-chat-messages" class="h-48 lg:h-64 overflow-y-auto border rounded p-3 bg-gray-50 mb-4">
+              <div class="text-gray-500 text-center">Select a user from the list to start chatting</div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-2">
+              <input type="text" id="admin-chat-input" placeholder="Type your message..." 
+                     class="flex-1 border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <button onclick="sendMessage()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Manage Transactions -->
+      <section id="transactions" class="mb-10">
+        <h2 class="text-lg lg:text-xl font-bold mb-4">Manage Transactions</h2>
+        <div class="bg-white p-4 lg:p-6 rounded shadow mb-4">
+          <form id="addTransactionForm" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <input type="text" id="txUserAccount" placeholder="User Account #" class="border p-2 rounded w-full" required>
+            <input type="date" id="txDate" class="border p-2 rounded w-full" required>
+            <input type="time" id="txTime" class="border p-2 rounded w-full" required>
+            <input type="text" id="txDescription" placeholder="Description" class="border p-2 rounded w-full" required>
+            <input type="text" id="txCategory" placeholder="Category" class="border p-2 rounded w-full" required>
+            <input type="number" id="txAmount" placeholder="Amount" class="border p-2 rounded w-full" required>
+            <select id="txStatus" class="border p-2 rounded w-full">
+              <option value="completed">Completed</option>
+              <option value="pending">Pending</option>
+            </select>
+            <button type="submit" class="bg-indigo-700 text-white px-4 py-2 rounded col-span-full sm:col-span-2 lg:col-span-1">Add Transaction</button>
+          </form>
+        </div>
+        <div class="bg-white rounded shadow p-4">
+          <div class="mb-4 flex flex-col sm:flex-row gap-2 items-start sm:items-center">
+            <input type="text" id="txSearch" placeholder="Search by account, description, or category..." class="border p-2 rounded flex-1" onkeyup="filterTransactions()">
+            <button onclick="exportTransactions()" class="bg-green-500 text-white px-3 py-1 rounded w-full sm:w-auto">Export</button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs lg:text-sm">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="p-2 text-left">Account</th>
+                  <th class="p-2 text-left">Date</th>
+                  <th class="p-2 text-left">Time</th>
+                  <th class="p-2 text-left">Description</th>
+                  <th class="p-2 text-left">Category</th>
+                  <th class="p-2 text-left">Amount</th>
+                  <th class="p-2 text-left">Status</th>
+                  <th class="p-2 text-left">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="txTable">
+                <!-- Transactions will be rendered here -->
+              </tbody>
+            </table>
+            <div id="noTxMessage" class="hidden p-8 text-center text-gray-500">No transactions found.</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white p-4 lg:p-6 rounded w-full max-w-md">
+      <h3 class="text-lg font-bold mb-4">Edit User</h3>
+      <input type="text" id="editName" class="w-full border p-2 mb-2 rounded" />
+      <input type="email" id="editEmail" class="w-full border p-2 mb-2 rounded" />
+      <input type="text" id="editAccount" class="w-full border p-2 mb-2 rounded" />
+      <input type="number" id="editBalance" class="w-full border p-2 mb-2 rounded" />
+      <input type="url" id="editPicture" class="w-full border p-2 mb-4 rounded" />
+      <div class="flex flex-col sm:flex-row justify-end gap-2">
+        <button onclick="closeEdit()" class="bg-gray-300 px-4 py-2 rounded">Cancel</button>
+        <button onclick="saveEdit()" class="bg-indigo-700 text-white px-4 py-2 rounded">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="admin.js"></script>
+
+</body>
+</html>

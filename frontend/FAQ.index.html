@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions | FrosstBank</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="FAQs.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="logo">Frosst<span>Bank</span></div>
+      <nav class="nav-links" id="navLinks">
+        <a href="personal banking.html">Personal</a>
+        <a href="businesspage.html">Business</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="login.html"><button class="login-btn">Login</button></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="faq-page">
+    <section class="faq-hero">
+      <div class="container">
+        <h1>Frequently Asked Questions</h1>
+        <p>Find answers to common questions about our banking services</p>
+      </div>
+    </section>
+
+    <section class="faq-container">
+      <div class="container">
+        <div class="faq-search">
+          <input type="text" placeholder="Search questions...">
+          <button><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="faq-categories">
+          <button class="category-btn active" data-category="all">All Questions</button>
+          <button class="category-btn" data-category="accounts">Accounts</button>
+          <button class="category-btn" data-category="loans">Loans</button>
+          <button class="category-btn" data-category="cards">Cards</button>
+          <button class="category-btn" data-category="digital">Digital Banking</button>
+          <button class="category-btn" data-category="security">Security</button>
+        </div>
+
+        <div class="faq-accordion">
+          <div class="faq-item" data-category="accounts">
+            <button class="faq-question">
+              <span>How do I open a new bank account?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>You can open a new account in three ways:</p>
+              <ol>
+                <li>Visit any of our branches with your identification documents</li>
+                <li>Apply online through our website (takes about 10 minutes)</li>
+                <li>Call our customer service at 1-800-FROSST-BANK</li>
+              </ol>
+              <p>You'll need a valid government-issued ID, Social Security number, and initial deposit.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="accounts">
+            <button class="faq-question">
+              <span>What's the minimum balance for a checking account?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Our standard checking account requires a $25 minimum daily balance to avoid monthly fees. However, we offer several account types:</p>
+              <ul>
+                <li><strong>Basic Checking:</strong> $25 minimum balance</li>
+                <li><strong>Premium Checking:</strong> $1,000 minimum balance or $5,000 in combined deposits</li>
+                <li><strong>Student Checking:</strong> No minimum balance (for students under 25)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="digital">
+            <button class="faq-question">
+              <span>How do I enroll in online banking?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Enrolling in online banking is simple:</p>
+              <ol>
+                <li>Go to our website and click "Enroll in Online Banking"</li>
+                <li>Enter your account number and personal information</li>
+                <li>Create your username and password</li>
+                <li>Set up security questions and verification method</li>
+                <li>Accept the terms and conditions</li>
+              </ol>
+              <p>You'll receive a confirmation email and can begin banking online immediately.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="security">
+            <button class="faq-question">
+              <span>What should I do if my card is lost or stolen?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>If your debit or credit card is lost or stolen, take these steps immediately:</p>
+              <ol>
+                <li>Call our 24/7 customer service at 1-800-FROSST-LOST to report it</li>
+                <li>Log in to online banking to freeze the card (if possible)</li>
+                <li>Monitor your account for unauthorized transactions</li>
+                <li>We'll cancel your current card and issue a new one within 3-5 business days</li>
+              </ol>
+              <p>You're protected by our $0 Liability Guarantee for unauthorized transactions.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="loans">
+            <button class="faq-question">
+              <span>What documents do I need for a personal loan?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>To apply for a personal loan, you'll typically need:</p>
+              <ul>
+                <li>Government-issued photo ID (driver's license, passport)</li>
+                <li>Proof of income (recent pay stubs, tax returns, or bank statements)</li>
+                <li>Proof of address (utility bill or lease agreement)</li>
+                <li>Social Security number</li>
+                <li>Information about your employment</li>
+              </ul>
+              <p>The exact requirements may vary based on your credit history and loan amount.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="cards">
+            <button class="faq-question">
+              <span>How do I activate my new debit card?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>You can activate your new FrosstBank debit card using any of these methods:</p>
+              <ol>
+                <li><strong>Online:</strong> Log in to your online banking account and follow the card activation prompts</li>
+                <li><strong>Mobile App:</strong> Use the card activation feature in our mobile banking app</li>
+                <li><strong>Phone:</strong> Call the activation number on the sticker on your card (available 24/7)</li>
+                <li><strong>ATM:</strong> Make a withdrawal or balance inquiry at any Frost Bank ATM</li>
+              </ol>
+              <p>You'll need to create a PIN during activation for ATM use.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-contact">
+          <h3>Didn't find your answer?</h3>
+          <p>Our customer service team is available 24/7 to assist you.</p>
+          <div class="contact-options">
+           
+            <a href="contact.html" class="contact-btn">
+              <i class="fas fa-envelope"></i> Send a Message
+            </a>
+          
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-info">
+        <div class="logo">Frosst<span>Bank</span></div>
+        <p>Building relationships that last since 1868.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+          
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-section">
+          <h4>Services</h4>
+          <a href="personal banking.html">Personal Banking</a>
+          <a href="businesspage.html">Business Banking</a>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          FAQs
+          
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href="about.html">About Us</a>
+          <a ">Careers</a>
+          <a >News</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <div class="container">
+        <p>&copy; 2024 Frost Bank. All rights reserved. Member FDIC. Equal Housing Lender.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+      document.body.classList.toggle('no-scroll');
+    });
+
+    // FAQ Accordion functionality
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const answer = question.nextElementSibling;
+        const icon = question.querySelector('i');
+        
+        // Toggle this item
+        item.classList.toggle('active');
+        
+        // Rotate icon
+        if (item.classList.contains('active')) {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          icon.style.transform = 'rotate(180deg)';
+        } else {
+          answer.style.maxHeight = '0';
+          icon.style.transform = 'rotate(0deg)';
+        }
+        
+        // Close other items
+        faqQuestions.forEach(otherQuestion => {
+          if (otherQuestion !== question) {
+            const otherItem = otherQuestion.parentElement;
+            const otherAnswer = otherQuestion.nextElementSibling;
+            const otherIcon = otherQuestion.querySelector('i');
+            
+            otherItem.classList.remove('active');
+            otherAnswer.style.maxHeight = '0';
+            otherIcon.style.transform = 'rotate(0deg)';
+          }
+        });
+      });
+    });
+
+    // FAQ Category filtering
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.dataset.category;
+        
+        // Update active button
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Filter items
+        faqItems.forEach(item => {
+          if (category === 'all' || item.dataset.category === category) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // FAQ Search functionality
+    const searchInput = document.querySelector('.faq-search input');
+    
+    searchInput.addEventListener('input', () => {
+      const searchTerm = searchInput.value.toLowerCase();
+      
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+        const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+        
+        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  </script>
+
+  <!-- Floating Chat Button -->
+  <div class="floating-chat-container" id="floatingChatContainer">
+    <button class="floating-chat-btn" id="floatingChatBtn" title="Start Chat">
+      <i class="fas fa-comments"></i>
+      <span class="chat-label">Chat with us</span>
+    </button>
+  </div>
+
+  <!-- Floating Chat Widget -->
+  <div class="floating-chat-widget" id="floatingChatWidget" style="display: none;">
+    <div class="chat-widget-header">
+      <div class="chat-widget-title">
+        <i class="fas fa-headset"></i>
+        <span>Live Support</span>
+      </div>
+      <button class="chat-widget-close" id="chatWidgetClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="chat-widget-body">
+      <div class="chat-widget-messages" id="chatWidgetMessages">
+        <div class="chat-widget-message bot">
+          <div class="message-avatar">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="message-content">
+            <div class="message-text">Hi there! 👋 How can we help you today?</div>
+            <div class="message-time">Just now</div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-widget-input-container">
+        <input type="text" id="chatWidgetInput" placeholder="Type a message..." />
+        <button id="chatWidgetSend">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Socket.io for chat -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
