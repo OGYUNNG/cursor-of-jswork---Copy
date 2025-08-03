@@ -33,14 +33,31 @@ const io = new Server(server, {
 });
 
 // PostgreSQL setup
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false, // required for Render PostgreSQL
-  },
+const pool = new Pool(
+  process.env.DATABASE_URL
+    ? {
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false },
+      }
+    : {
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME,
+      }
+);
+
+// Test connection
+pool.connect((err, client, release) => {
+  if (err) {
+    return console.error('❌ Database connection failed:', err.stack);
+  }
+  console.log('✅ Connected to database');
+  release();
 });
 
-// ✅ Multer configuration for file uploads
+// Multer configuration for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const uploadDir = path.join(__dirname, 'uploads');
