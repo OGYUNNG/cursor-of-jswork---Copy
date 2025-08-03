@@ -4,16 +4,9 @@ services:
     env: node
     plan: free
     buildCommand: npm install
-    startCommand: node server.js   # or npm start if using scripts
+    startCommand: node server.js
     envVars:
-      - key: postgresql://database_frosstbank_user:4O5MlK4IUD7xgUNFcVc00OaoX9JHiyHM@dpg-d27a2uuuk2gs73dpge2g-a.oregon-postgres.render.com/database_frosstbank
-        fromDatabase:
-          name: database frosstbank
+      - key: DATABASE_URL
+        value: "postgresql://database_frosstbank_user:4O5MlK4IUD7xgUNFcVc00OaoX9JHiyHM@dpg-d27a2uuuk2gs73dpge2g-a.oregon-postgres.render.com/database_frosstbank"
       - key: NODE_ENV
         value: production
-
-databases:
-  - name: database frosstbank
-    plan: free
-    databaseName: frosstBank database
-    user: admin
