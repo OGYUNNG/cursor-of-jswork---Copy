@@ -4,7 +4,7 @@ services:
     env: node
     plan: free
     buildCommand: npm install
-    startCommand: node server.js
+    startCommand: npm start
     envVars:
       - key: DATABASE_URL
         value: "postgresql://database_frosstbank_user:4O5MlK4IUD7xgUNFcVc00OaoX9JHiyHM@dpg-d27a2uuuk2gs73dpge2g-a.oregon-postgres.render.com/database_frosstbank"
