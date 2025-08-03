@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const userTable = document.getElementById('userTable');
   const messageBox = document.getElementById('message-box');
 
-  const API_BASE = 'http://localhost:3100';
-  const socket = io('http://localhost:3100');
+  const API_BASE = 'https://cursor-of-jswork-copy-backend.onrender.com';
+const socket = io('https://cursor-of-jswork-copy-backend.onrender.com');
 
   // Register admin with socket
   socket.emit('register', {
@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const photoCell = document.createElement('td');
     photoCell.className = 'p-3';
     if (user.profile_picture) {
-      photoCell.innerHTML = `<img src="http://localhost:3100${user.profile_picture}" alt="${user.name}" class="w-8 h-8 rounded-full object-cover" />`;
+                  photoCell.innerHTML = `<img src="https://cursor-of-jswork-copy-backend.onrender.com${user.profile_picture}" alt="${user.name}" class="w-8 h-8 rounded-full object-cover" />`;
     } else {
       const initials = user.name ? user.name.charAt(0).toUpperCase() : 'U';
       photoCell.innerHTML = `<div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm font-medium">${initials}</div>`;

@@ -7,7 +7,7 @@ async function testTransactionEndpoint() {
 
     // Test GET /transactions
     console.log('1. Testing GET /transactions...');
-    const getResponse = await fetch('http://localhost:3100/transactions');
+    const getResponse = await fetch('https://cursor-of-jswork-copy-backend.onrender.com/transactions');
     console.log('Status:', getResponse.status);
     
     if (getResponse.ok) {
@@ -32,7 +32,7 @@ async function testTransactionEndpoint() {
       status: 'completed'
     };
 
-    const postResponse = await fetch('http://localhost:3100/transactions', {
+    const postResponse = await fetch('https://cursor-of-jswork-copy-backend.onrender.com/transactions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

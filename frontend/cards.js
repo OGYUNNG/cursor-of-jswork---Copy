@@ -1,5 +1,5 @@
 // API Base URL
-const API_BASE = 'http://localhost:3100';
+const API_BASE = 'https://cursor-of-jswork-copy-backend.onrender.com';
 
 // User data variables
 let currentUser = null;

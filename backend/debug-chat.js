@@ -3,7 +3,7 @@ const io = require('socket.io-client');
 console.log('🔍 Testing Chat Server Connection...\n');
 
 // Test Socket.io connection
-const socket = io('http://localhost:3100');
+const socket = io('https://cursor-of-jswork-copy-backend.onrender.com');
 
 socket.on('connect', () => {
   console.log('✅ Successfully connected to chat server');

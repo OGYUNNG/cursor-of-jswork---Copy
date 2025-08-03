@@ -64,7 +64,7 @@ const chatWidgetMessages = document.getElementById('chatWidgetMessages');
 // Initialize Socket.io connection for chat
 let socket;
 try {
-  socket = io('http://localhost:3100');
+  socket = io('https://cursor-of-jswork-copy-backend.onrender.com');
   
   socket.on('connect', () => {
     console.log('✅ Connected to chat server');

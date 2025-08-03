@@ -6,7 +6,7 @@ async function testDashboardDatabase() {
   try {
     // Test 1: Check if server is running
     console.log('1️⃣ Testing Server Connection...');
-    const serverResponse = await fetch('http://localhost:3100/users');
+    const serverResponse = await fetch('https://cursor-of-jswork-copy-backend.onrender.com/users');
     
     if (serverResponse.ok) {
       console.log('✅ Server is running');
@@ -17,7 +17,7 @@ async function testDashboardDatabase() {
 
     // Test 2: Get all users to see what's in the database
     console.log('\n2️⃣ Testing Database Users...');
-    const usersResponse = await fetch('http://localhost:3100/users');
+    const usersResponse = await fetch('https://cursor-of-jswork-copy-backend.onrender.com/users');
     const users = await usersResponse.json();
     
     console.log(`✅ Found ${users.length} users in database`);
@@ -39,7 +39,7 @@ async function testDashboardDatabase() {
       const testUserId = users[0].id;
       console.log(`3️⃣ Testing Dashboard User Fetch (User ID: ${testUserId})...`);
       
-      const userResponse = await fetch(`http://localhost:3100/users/${testUserId}`);
+      const userResponse = await fetch(`https://cursor-of-jswork-copy-backend.onrender.com/users/${testUserId}`);
       
       if (userResponse.ok) {
         const userData = await userResponse.json();

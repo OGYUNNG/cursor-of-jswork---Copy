@@ -79,7 +79,7 @@ cd backend
 npm start
 ```
 
-The server will run on `http://localhost:3100`
+The server will run on `https://cursor-of-jswork-copy-backend.onrender.com`
 
 ### 5. Test the Chat System
 

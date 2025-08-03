@@ -48,7 +48,7 @@ loginForm.addEventListener('submit', function (e) {
   }
 
   // Send login request to backend
-  fetch('http://localhost:3100/login', {
+  fetch('https://cursor-of-jswork-copy-backend.onrender.com/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

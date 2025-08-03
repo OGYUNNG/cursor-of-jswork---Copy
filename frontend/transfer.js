@@ -5,7 +5,7 @@ let userAccounts = [];
 let userBalance = 0;
 
 // API Base URL
-const API_BASE = 'http://localhost:3100';
+const API_BASE = 'https://cursor-of-jswork-copy-backend.onrender.com';
 
 // Initialize Socket.io connection
 function initializeSocket() {
@@ -19,7 +19,7 @@ function initializeSocket() {
   currentUser = JSON.parse(userInfo);
   
   // Connect to Socket.io server
-  socket = io('http://localhost:3100', {
+  socket = io('https://cursor-of-jswork-copy-backend.onrender.com', {
     auth: {
       token: localStorage.getItem('jwtToken')
     }

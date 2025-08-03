@@ -15,7 +15,7 @@ async function testRegisterRoute() {
     console.log('📤 Sending POST request to /register...');
     console.log('Request data:', testData);
     
-    const response = await fetch('http://localhost:3100/register', {
+    const response = await fetch('https://cursor-of-jswork-copy-backend.onrender.com/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

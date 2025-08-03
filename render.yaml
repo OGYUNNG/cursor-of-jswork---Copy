@@ -14,4 +14,4 @@ services:
       - key: PORT
         value: 3100
       - key: CORS_ORIGIN
-        value: "https://frosstbank.onrender.com,http://localhost:3000"
+        value: "https://cursor-of-jswork-copy-backend.onrender.com,http://localhost:3000"

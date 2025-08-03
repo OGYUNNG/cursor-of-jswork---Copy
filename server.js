@@ -10,8 +10,8 @@ const knex = require('knex');
 app.use(express.json());
 
 app.use(cors(
-  {origin: [ 'https://trial-2-5mv8.onrender.com',
-    'http://localhost:3100'] 
+  {origin: [ 'https://cursor-of-jswork-copy-backend.onrender.com',
+    'https://cursor-of-jswork-copy-backend.onrender.com'] 
   , methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
   }
@@ -66,5 +66,5 @@ app.get('/', (req, res) => {
 });
 // 4. Start the server
 app.listen(3000, () => {
-  console.log('Server running on http://localhost:3000');
+  console.log('Server running on https://cursor-of-jswork-copy-backend.onrender.com');
 });

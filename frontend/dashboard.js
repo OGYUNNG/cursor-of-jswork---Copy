@@ -21,7 +21,7 @@ function getUserInfo() {
 }
 
 // Initialize Socket.io connection
-const socket = io('http://localhost:3100'); // ✅ Ensure backend is running on this port
+const socket = io('https://cursor-of-jswork-copy-backend.onrender.com'); // ✅ Ensure backend is running on this port
 
 // Get and store current user info
 currentUser = getUserInfo();
@@ -225,7 +225,7 @@ if (chatInput) {
 // Fetch user data from PostgreSQL database
 async function fetchUserData() {
   try {
-    const response = await fetch(`http://localhost:3100/users/${currentUser.id}`, {
+    const response = await fetch(`https://cursor-of-jswork-copy-backend.onrender.com/users/${currentUser.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -269,7 +269,7 @@ async function renderUserProfile() {
     // Update profile picture
     const profilePic = document.getElementById('userProfilePic');
     if (profilePic && currentUser.profile_picture) {
-      profilePic.src = `http://localhost:3100${currentUser.profile_picture}`;
+      profilePic.src = `https://cursor-of-jswork-copy-backend.onrender.com${currentUser.profile_picture}`;
     } else if (profilePic) {
       // Use first letter of name as fallback
       const initials = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U';
@@ -333,7 +333,7 @@ async function apiCall(endpoint, options = {}) {
     return null;
   }
 
-  const response = await fetch(`http://localhost:3100/api${endpoint}`, {
+  const response = await fetch(`https://cursor-of-jswork-copy-backend.onrender.com/api${endpoint}`, {
     ...options,
     headers: {
       'Content-Type': 'application/json',

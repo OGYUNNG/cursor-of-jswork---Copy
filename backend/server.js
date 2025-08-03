@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3100;
 // ✅ Setup CORS using environment config
 const allowedOrigins = process.env.CORS_ORIGIN
   ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
-  : ['http://localhost:3000', 'http://localhost:4000'];
+  : ['https://cursor-of-jswork-copy-backend.onrender.com', 'http://localhost:4000'];
 
 app.use(cors({
   origin: allowedOrigins,

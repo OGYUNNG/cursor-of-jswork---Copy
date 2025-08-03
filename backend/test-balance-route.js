@@ -12,7 +12,7 @@ async function testBalanceRoute() {
     console.log('📤 Sending PUT request to /users/1/balance...');
     console.log('Request data:', testData);
     
-    const response = await fetch('http://localhost:3100/users/1/balance', {
+    const response = await fetch('https://cursor-of-jswork-copy-backend.onrender.com/users/1/balance', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
