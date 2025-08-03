@@ -3,6 +3,7 @@ services:
     name: frosstBank
     env: node
     plan: free
+    rootDir: backend
     buildCommand: npm install
     startCommand: npm start
     envVars:
@@ -10,3 +11,7 @@ services:
         value: "postgresql://database_frosstbank_user:4O5MlK4IUD7xgUNFcVc00OaoX9JHiyHM@dpg-d27a2uuuk2gs73dpge2g-a.oregon-postgres.render.com/database_frosstbank"
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 3100
+      - key: CORS_ORIGIN
+        value: "https://frosstbank.onrender.com,http://localhost:3000"

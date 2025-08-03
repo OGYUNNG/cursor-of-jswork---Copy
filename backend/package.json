@@ -9,6 +9,7 @@
     "migrate-users": "node migrations/create_users_table.js",
     "migrate-transactions": "node migrations/create_transactions_table.js",
     "check-db": "node check-db.js",
+    "test-db": "node test-db-connection.js",
     "create-test-user": "node create-test-user.js",
     "test-transactions": "node test-transactions.js",
     "test-transaction-endpoint": "node test-transaction-endpoint.js"

@@ -32,30 +32,8 @@ const io = new Server(server, {
   }
 });
 
-// PostgreSQL setup
-const pool = new Pool(
-  process.env.DATABASE_URL
-    ? {
-        connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false },
-      }
-    : {
-        host: process.env.DB_HOST,
-        port: process.env.DB_PORT,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_NAME,
-      }
-);
-
-// Test connection
-pool.connect((err, client, release) => {
-  if (err) {
-    return console.error('❌ Database connection failed:', err.stack);
-  }
-  console.log('✅ Connected to database');
-  release();
-});
+// ✅ PostgreSQL Connection via centralized db module
+const db = require('./db');
 
 // Multer configuration for file uploads
 const storage = multer.diskStorage({
@@ -90,9 +68,6 @@ const upload = multer({
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'frontend')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// ✅ PostgreSQL Connection via centralized db module
-const db = require('./db');
 
 // ✅ Test DB connection
 db.raw('SELECT 1')
