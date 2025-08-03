@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs');
 const multer = require('multer');
 const fs = require('fs');
 const { Server } = require('socket.io');
-
+const { Pool } = require('pg');
 const app = express();
 const server = http.createServer(app); // Wrap express with http server for socket.io
 const PORT = process.env.PORT || 3100;
@@ -30,6 +30,13 @@ const io = new Server(server, {
     origin: allowedOrigins,
     methods: ["GET", "POST"]
   }
+});
+
+// PostgreSQL setup
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL ||
+    `postgresql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
 // ✅ Multer configuration for file uploads
